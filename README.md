@@ -2,7 +2,9 @@ Drupal 6 to Drupal 8 migration example
 =====
 
 This project attempts to demonstrate how typical data might be migrated from
-Drupal 6 to Drupal 8.
+Drupal 6 to Drupal 8. `./scripts/run.sh` sets up everything for you in
+Docker containers, and tells you what you should do to accomplish the
+migration.
 
 This very simple examples installs a Drupal 6 site with two content types:
 
