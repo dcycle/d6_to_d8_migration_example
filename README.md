@@ -31,17 +31,18 @@ Prerequisites
 Instructions
 -----
 
-Start by starting up the system.
+Start up the system.
 
     ./scripts/run.sh
 
 Follow the instructions on the screen. Here is what should happen if all goes
 well:
 
- * You will be asked to install a new Drupal 6 site with the GUI installer.
+ * New Drupal 6 and 8 websites will be installed.
+ * You will be asked to go through the Drupal 6 GUI installer.
  * Once that is done, a series of new content types and new generated content
    will be created. (See the Drupal 6 content section below for details.)
- * You will be login links to your Drupal 6 and Drupal 8 sites.
+ * You will be given login links to your Drupal 6 and Drupal 8 sites.
 
 Difference between status, upgrade and import
 -----
