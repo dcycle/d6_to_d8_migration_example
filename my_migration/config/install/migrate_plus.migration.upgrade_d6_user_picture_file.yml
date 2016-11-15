@@ -11,7 +11,7 @@ source:
   plugin: d6_user_picture_file
   constants:
     is_public: true
-    source_base_path: /pathtodrupalsix
+    source_base_path: /drupal6code
 process:
   filename: filename
   uid: uid

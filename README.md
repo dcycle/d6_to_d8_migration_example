@@ -48,18 +48,22 @@ Difference between status, upgrade and import
 
 I have found the nuances between these to be confusing...
 
- * `drush migrate-upgrade` (or visiting the `/upgrade` page (1)) (or visiting
+ * `drush migrate-upgrade --legacy-root=/drupal6code` (or visiting the `/upgrade` page (1)) (or visiting
    the `/upgrade` page) is a basic import from an existing Drupal site to the
    current newly-created Drupal 8 site. This blindly imports all data from the
    source to the destination and does not require a custom module, and does not
    allow you to modify the data as it is being imported.
- * `drush migrate-upgrade --configure-only` will generate default migrators and
-   put them in the database. You can then run `drush config-export --destination=/tmp/migrate` to get the .yml files, which you can then
-   put in your migration module (and modify to customize).
+ * `drush migrate-upgrade --configure-only --legacy-root=/drupal6code` will
+   generate default migrators and put them in the database. You can then run
+   `drush config-export --destination=/tmp/migrate` to get the .yml files, which
+   you can then put in your migration module (and modify to customize). You
+   might need to make a few changes: (1) set the source_base_path in the yml
+   files as described in [this issue](https://www.drupal.org/node/2827914);
+   (2) set the key to "upgrade" in `./my_migration/config/install/migrate_plus.migration_group.migrate_drupal_6.yml`.
  * `drush migrate-import --all` runs the import based on the migrators in your
    custom module.
  * `drush migrate-status` tells you what the migrator will do without actually
-  doing it.
+   doing it.
 
 Note 1: If you run the upgrade by visiting the /upgrade page, which will not
 use your custom processors, you can use the following database information:
