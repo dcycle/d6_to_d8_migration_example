@@ -13,7 +13,7 @@ This very simple examples installs a Drupal 6 site with two content types:
 In this example, we want to merge these two content types:
 
  * all `legacy_type_one` and `legacy_type_two` nodes should be imported as
-   nodes of type `new_node`.
+   nodes of type `new_node_type`.
  * `field_select` and `field_anything` should be available in `new_node_type`.
  * `field_image` should be imported.
 
