@@ -11,4 +11,6 @@ source_type: 'Drupal 6'
 module: null
 shared_configuration:
   source:
-    key: drupal_6
+    # This is the key which you can find in the settings.php file for Drupal 8
+    # and which defines the database for Drupal 6.
+    key: upgrade

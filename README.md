@@ -48,7 +48,7 @@ Further resources
    Benjamin Melançon (mlncn), July 27, 2016.
  * [Custom Drupal-to-Drupal Migrations with Migrate Tools](https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools),
    by William Hetherington, Drupalize.me, April 26, 2016.
-
+ * [Drupal 8 Migrations, part 4: Migrating Nodes from Drupal 7](http://www.metaltoad.com/blog/migrating-nodes-drupal-7-to-drupal-8), By Keith Dechant, December 10th, 2014, later upgraded for Drupal 8.2.
 
 Drupal 6 content
 -----

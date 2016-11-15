@@ -34,6 +34,3 @@ cd /var/www/html && \
     -y
   chown -R www-data:www-data ./sites/default/files && \
   drush cache-rebuild
-
-# See https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools
-drush migrate-upgrade --configure-only --legacy-db-key=migrate

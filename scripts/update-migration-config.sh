@@ -9,10 +9,13 @@
 set -e
 
 docker-compose exec drupal8 /bin/bash -c 'drush migrate-upgrade \
-    --configure-only \
-    --legacy-db-key=migrate && \
+    --configure-only && \
   drush config-export --destination=/tmp/migrate && \
   cp \
     /tmp/migrate/migrate_plus.migration.* \
     /tmp/migrate/migrate_plus.migration_group.migrate_*.yml \
     /var/www/html/modules/custom/my_migration/config/install/'
+
+echo '[info] Updated files in ./my_migration/config/install.'
+echo '       Please make sure the key in ./my_migration/config/install/migrate_plus.migration_group.migrate_drupal_6.yml'
+echo '       is "upgrade"'

@@ -1,7 +1,7 @@
 # See https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools
 # This will be added to the settings.php file on the Drupal 8 container.
 
-$databases['migrate']['default'] = array (
+$databases['upgrade']['default'] = array (
   'database' => 'drupal',
   'username' => 'drupal',
   'password' => 'drupal',
