@@ -1,0 +1,30 @@
+uuid: 56557e7f-7d1d-4ac5-a9a1-d42055713611
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: WgPOBBlXGRQkZFaY5D2-TxgjS03sVE3fSI0tnt-rqM8
+id: upgrade_d6_user_contact_settings
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: 'User contact settings'
+source:
+  plugin: d6_user
+  constants:
+    key: contact
+    module: contact
+process:
+  uid: uid
+  key: constants/key
+  module: constants/module
+  settings:
+    plugin: skip_row_if_not_set
+    index: contact
+    source: data
+destination:
+  plugin: user_data
+migration_dependencies:
+  required:
+    - upgrade_d6_user
+  optional: {  }

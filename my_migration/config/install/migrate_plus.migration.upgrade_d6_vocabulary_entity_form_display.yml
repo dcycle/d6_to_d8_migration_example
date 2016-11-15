@@ -1,0 +1,40 @@
+uuid: cf74a2fb-2e4b-4402-a0c2-b36236f2b520
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: iT_Mrcg9fABRXSZZnDn4bz3b8uwdk-PHIIS--BqZR6Y
+id: upgrade_d6_vocabulary_entity_form_display
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: 'Vocabulary form display configuration'
+source:
+  plugin: d6_taxonomy_vocabulary_per_type
+  constants:
+    entity_type: node
+    form_mode: default
+    options:
+      weight: 20
+process:
+  entity_type: constants/entity_type
+  form_mode: constants/form_mode
+  options/type:
+    plugin: static_map
+    source: tags
+    map:
+      - options_select
+      - entity_reference_autocomplete_tags
+  options/weight: constants/options/weight
+  bundle: type
+  field_name:
+    plugin: migration
+    migration: upgrade_d6_taxonomy_vocabulary
+    source: vid
+destination:
+  plugin: component_entity_form_display
+migration_dependencies:
+  required:
+    - upgrade_d6_vocabulary_field_instance
+  optional:
+    - upgrade_d6_taxonomy_vocabulary

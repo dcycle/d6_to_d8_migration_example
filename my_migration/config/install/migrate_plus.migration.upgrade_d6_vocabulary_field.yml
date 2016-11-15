@@ -1,0 +1,37 @@
+uuid: dabeae9a-3b5a-40c1-a576-066bedf99bcc
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 3VRrjLupOI7ilxDaT4OSMzpejJkxOqzprsEHJRGZj5M
+id: upgrade_d6_vocabulary_field
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: 'Vocabulary field configuration'
+source:
+  plugin: d6_taxonomy_vocabulary
+  constants:
+    entity_type: node
+    type: entity_reference
+    target_entity_type: taxonomy_term
+process:
+  entity_type: constants/entity_type
+  type: constants/type
+  field_name:
+    -
+      plugin: migration
+      migration: upgrade_d6_taxonomy_vocabulary
+      source: vid
+    -
+      plugin: skip_on_empty
+      method: row
+  settings/target_type: constants/target_entity_type
+  cardinality: cardinality
+destination:
+  plugin: 'md_entity:field_storage_config'
+migration_dependencies:
+  required:
+    - upgrade_d6_taxonomy_vocabulary
+  optional:
+    - upgrade_d6_taxonomy_vocabulary

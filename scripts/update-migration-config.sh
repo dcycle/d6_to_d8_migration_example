@@ -15,4 +15,4 @@ docker-compose exec drupal8 /bin/bash -c 'drush migrate-upgrade \
   cp \
     /tmp/migrate/migrate_plus.migration.* \
     /tmp/migrate/migrate_plus.migration_group.migrate_*.yml \
-    /var/www/html/modules/custom/my_migration/config/install/
+    /var/www/html/modules/custom/my_migration/config/install/'

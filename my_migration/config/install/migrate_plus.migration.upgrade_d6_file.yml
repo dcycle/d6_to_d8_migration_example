@@ -1,0 +1,49 @@
+uuid: ec925472-c4e5-4d96-96f7-4433cc3060d7
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: lsLiCvRLhwlVg1t2oaLE_ShV6GofMNZmrVTcOT86Rd4
+id: upgrade_d6_file
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: Files
+source:
+  plugin: d6_file
+  constants:
+    source_base_path: /
+process:
+  fid: fid
+  filename: filename
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/source_base_path
+        - filepath
+    -
+      plugin: urlencode
+  destination_full_path:
+    plugin: file_uri
+    source:
+      - filepath
+      - file_directory_path
+      - temp_directory_path
+      - is_public
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - '@destination_full_path'
+  filemime: filemime
+  filesize: filesize
+  status: status
+  changed: timestamp
+  uid: uid
+destination:
+  plugin: 'entity:file'
+migration_dependencies:
+  required: {  }
+  optional: {  }

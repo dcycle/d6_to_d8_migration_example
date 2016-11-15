@@ -1,0 +1,26 @@
+uuid: a810cbe5-f239-4016-bb39-a0d72f260ed4
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Uj7rkjZobaHHr1GBer0xnpLaNGmL3DUO-Erc1twt9Xw
+id: upgrade_system_rss
+migration_tags:
+  - 'Drupal 6'
+  - 'Drupal 7'
+migration_group: migrate_drupal_6
+label: 'RSS configuration'
+source:
+  plugin: variable
+  variables:
+    - feed_default_items
+    - feed_item_length
+process:
+  items/limit: feed_default_items
+  items/view_mode: feed_item_length
+destination:
+  plugin: config
+  config_name: system.rss
+migration_dependencies:
+  required: {  }
+  optional: {  }

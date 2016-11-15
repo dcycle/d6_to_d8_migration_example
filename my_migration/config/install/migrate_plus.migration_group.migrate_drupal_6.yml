@@ -1,0 +1,14 @@
+uuid: 752edf29-9024-49e9-a21c-b0d3f0c877b0
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: QhlVBXII4zr4HzGFM1bPKKmHjeoeyUplV9mZCZ9xMjg
+id: migrate_drupal_6
+label: 'Import from Drupal 6'
+description: 'Migrations originally generated from drush migrate-upgrade --configure-only'
+source_type: 'Drupal 6'
+module: null
+shared_configuration:
+  source:
+    key: drupal_6

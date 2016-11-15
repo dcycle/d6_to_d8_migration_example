@@ -1,0 +1,22 @@
+uuid: 599e80e5-ea81-45b9-bacb-e3dccb3330f2
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: _X0Kbaxu6EqXxXhKzmufVfTbV4xxNaeXYQUqvCnMvnQ
+id: upgrade_d6_menu
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: Menus
+source:
+  plugin: menu
+process:
+  id: menu_name
+  label: title
+  description: description
+destination:
+  plugin: 'entity:menu'
+migration_dependencies:
+  required: {  }
+  optional: {  }

@@ -1,0 +1,23 @@
+uuid: d5e4a317-f7f7-4fa8-8d97-d8cfd1ddaadf
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: xW7EqpgvHk3nX8wfmEo7A_63HJulbAR_i9CEfkJEIvs
+id: upgrade_d6_node_settings
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: 'Node configuration'
+source:
+  plugin: variable
+  variables:
+    - node_admin_theme
+process:
+  use_admin_theme: node_admin_theme
+destination:
+  plugin: config
+  config_name: node.settings
+migration_dependencies:
+  required: {  }
+  optional: {  }

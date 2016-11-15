@@ -1,0 +1,53 @@
+uuid: 7bf2d40d-a91f-48ce-b101-82955f50f1de
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: GTGu1H5yJNRakCreBrFiqSG9G-VFo4nzbPpED4VLz9k
+id: upgrade_d6_user_role
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: 'User roles'
+source:
+  plugin: d6_user_role
+process:
+  id:
+    -
+      plugin: machine_name
+      source: name
+    -
+      plugin: user_update_8002
+  label: name
+  permissions:
+    -
+      plugin: static_map
+      source: permissions
+      bypass: true
+      map:
+        'use PHP for block visibility': 'use PHP for settings'
+        'administer site-wide contact form': 'administer contact forms'
+        'post comments without approval': 'skip comment approval'
+        'edit own blog entries': 'edit own blog content'
+        'edit any blog entry': 'edit any blog content'
+        'delete own blog entries': 'delete own blog content'
+        'delete any blog entry': 'delete any blog content'
+        'create forum topics': 'create forum content'
+        'delete any forum topic': 'delete any forum content'
+        'delete own forum topics': 'delete own forum content'
+        'edit any forum topic': 'edit any forum content'
+        'edit own forum topics': 'edit own forum content'
+    -
+      plugin: system_update_7000
+    -
+      plugin: node_update_7008
+    -
+      plugin: flatten
+    -
+      plugin: filter_format_permission
+destination:
+  plugin: 'entity:user_role'
+migration_dependencies:
+  required:
+    - upgrade_d6_filter_format
+  optional: {  }

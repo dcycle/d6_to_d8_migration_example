@@ -1,0 +1,33 @@
+uuid: d601f923-f0ae-4661-a231-22700238b45d
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 6sOQKBKUdBk4-RDi5cZMvOjU2gxYdvsW53LA1H2M8ds
+id: upgrade_d6_taxonomy_vocabulary
+migration_tags:
+  - 'Drupal 6'
+migration_group: migrate_drupal_6
+label: 'Taxonomy vocabularies'
+source:
+  plugin: d6_taxonomy_vocabulary
+process:
+  vid:
+    -
+      plugin: machine_name
+      source: name
+    -
+      plugin: dedupe_entity
+      entity_type: taxonomy_vocabulary
+      field: vid
+      length: 32
+  label: name
+  name: name
+  description: description
+  hierarchy: hierarchy
+  weight: weight
+destination:
+  plugin: 'entity:taxonomy_vocabulary'
+migration_dependencies:
+  required: {  }
+  optional: {  }
