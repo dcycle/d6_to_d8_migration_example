@@ -11,6 +11,9 @@ source:
   plugin: d6_node
   node_type: legacy_type_two
 process:
+  type:
+    plugin: default_value
+    value: new_node_type
   nid: tnid
   vid: vid
   langcode:

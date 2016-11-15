@@ -14,8 +14,14 @@ In this example, we want to merge these two content types:
 
  * all `legacy_type_one` and `legacy_type_two` nodes should be imported as
    nodes of type `new_node`.
- * `field_select` and `field_anything` should be available in `new_node`.
+ * `field_select` and `field_anything` should be available in `new_node_type`.
  * `field_image` should be imported.
+
+This was accomplished by following the instructions in the article [Custom Drupal-to-Drupal Migrations with Migrate Tools](https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools), by William Hetherington, Drupalize.me, April 26, 2016; this resulted in
+the yml files in `my_migration/config/install`, which can be modified.
+Specifically, `migrate_plus.migration.upgrade_d6_node_legacy_type_one.yml` and
+`migrate_plus.migration.upgrade_d6_node_legacy_type_two.yml` were modified
+
 
 Prerequisites
 -----
@@ -36,7 +42,33 @@ well:
  * Once that is done, a series of new content types and new generated content
    will be created. (See the Drupal 6 content section below for details.)
  * You will be login links to your Drupal 6 and Drupal 8 sites.
- *
+
+Difference between status, upgrade and import
+-----
+
+I have found the nuances between these to be confusing...
+
+ * `drush migrate-upgrade` (or visiting the `/upgrade` page (1)) (or visiting
+   the `/upgrade` page) is a basic import from an existing Drupal site to the
+   current newly-created Drupal 8 site. This blindly imports all data from the
+   source to the destination and does not require a custom module, and does not
+   allow you to modify the data as it is being imported.
+ * `drush migrate-upgrade --configure-only` will generate default migrators and
+   put them in the database. You can then run `drush config-export --destination=/tmp/migrate` to get the .yml files, which you can then
+   put in your migration module (and modify to customize).
+ * `drush migrate-import --all` runs the import based on the migrators in your
+   custom module.
+ * `drush migrate-status` tells you what the migrator will do without actually
+  doing it.
+
+Note 1: If you run the upgrade by visiting the /upgrade page, which will not
+use your custom processors, you can use the following database information:
+
+  * Database host: drupal6database
+  * Database name: drupal
+  * Database username: drupal
+  * Database password: drupal
+  * (Source files:) Files directory: /drupal6code
 
 Further resources
 -----

@@ -33,4 +33,5 @@ cd /var/www/html && \
     my_migration \
     -y
   chown -R www-data:www-data ./sites/default/files && \
-  drush cache-rebuild
+  drush cache-rebuild && \
+  drush cc drush
