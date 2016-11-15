@@ -1,0 +1,22 @@
+# This Dockerfile describes how to create the Drupal 8 container to
+# serve our new site where the migration script will run. This will
+# automatically be spun up from the ./scripts/run.sh script.
+FROM drupal:8.2
+
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
+RUN composer global require drush/drush:8
+RUN ln -s /root/.composer/vendor/drush/drush/drush /bin/drush
+
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y mysql-client
+
+RUN cd /var/www/html && drush dl migrate_tools migrate_plus -y
+# Not sure why migrate_update gets downloaded inth /root/.drush by default,
+# we need to specify that we want it be downloaded to the ./modules folder.
+RUN cd /var/www/html && drush dl migrate_upgrade --destination=modules -y
+
+ADD docker-resources/drupal8/run.sh /run.sh
+ADD docker-resources/drupal8/settings.php-migrate.txt /settings.php-migrate.txt
+
+EXPOSE 80

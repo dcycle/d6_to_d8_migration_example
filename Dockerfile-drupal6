@@ -1,0 +1,57 @@
+# This Dockerfile describes how to create the Drupal 6 container to
+# serve legacy Drupal 6 sites.
+# The Drupal 7 container does not work for Drupal 6 because it is based
+# on php 7. We'll copy
+# https://github.com/docker-library/drupal/blob/master/7/apache/Dockerfile
+# and base it instead on php 5.
+# This will automatically be spun up from the ./scripts/run.sh script.
+FROM php:5.6-apache
+
+RUN a2enmod rewrite
+
+# install the PHP extensions we need
+RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
+	&& rm -rf /var/lib/apt/lists/*
+
+WORKDIR /var/www/html
+
+# https://www.drupal.org/drupal-6.38-release-notes
+ENV DRUPAL_VERSION 6.38
+ENV DRUPAL_MD5 2ece34c3bb74e8bff5708593fa83eaac
+
+RUN curl -fSL "https://ftp.drupal.org/files/projects/drupal-${DRUPAL_VERSION}.tar.gz" -o drupal.tar.gz \
+	&& echo "${DRUPAL_MD5} *drupal.tar.gz" | md5sum -c - \
+	&& tar -xz --strip-components=1 -f drupal.tar.gz \
+	&& rm drupal.tar.gz \
+	&& chown -R www-data:www-data sites
+
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
+RUN apt-get update
+RUN apt-get install -y git zip
+RUN composer global require drush/drush:8
+RUN ln -s /root/.composer/vendor/drush/drush/drush /bin/drush
+
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y mysql-client
+
+# See https://www.drupal.org/node/1826652
+RUN echo 'sendmail_path = /bin/true' >> /usr/local/etc/php/php.ini
+
+RUN apt-get install -y php5-mysql
+RUN echo 'extension = /usr/lib/php5/20131226/mysql.so' >> /usr/local/etc/php/php.ini
+
+RUN drush dl \
+	features-6.x-1.x-dev \
+	cck-6.x-2.10 \
+	admin_menu-6.x-3.x-dev \
+	devel-6.x-1.25 \
+	filefield-6.x-3.14 \
+	imagefield-6.x-3.3 \
+	-y
+
+ADD docker-resources/drupal6/run.sh /run.sh
+ADD docker-resources/drupal6/run-post-install.sh /run-post-install.sh
+ADD docker-resources/drupal6/drupal6structure /var/www/html/sites/all/modules/features/drupal6structure
+
+EXPOSE 80
