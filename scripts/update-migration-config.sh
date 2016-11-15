@@ -8,7 +8,8 @@
 #
 set -e
 
-docker-compose exec drupal8 /bin/bash -c 'drush migrate-upgrade \
+docker-compose exec drupal8 /bin/bash -c 'drush cc drush && \
+  drush migrate-upgrade \
     --configure-only --legacy-root=/drupal6code && \
   drush config-export --destination=/tmp/migrate && \
   cp \
