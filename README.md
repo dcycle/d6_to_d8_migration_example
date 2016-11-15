@@ -49,8 +49,8 @@ Difference between status, upgrade and import
 
 I have found the nuances between these to be confusing...
 
- * `drush migrate-upgrade --legacy-root=/drupal6code` (or visiting the `/upgrade` page (1)) (or visiting
-   the `/upgrade` page) is a basic import from an existing Drupal site to the
+ * `drush migrate-upgrade --legacy-root=/drupal6code` (or visiting the
+   `/upgrade` page (1)) is a basic import from an existing Drupal site to the
    current newly-created Drupal 8 site. This blindly imports all data from the
    source to the destination and does not require a custom module, and does not
    allow you to modify the data as it is being imported.
