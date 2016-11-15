@@ -90,8 +90,8 @@ Further resources
 Drupal 6 content
 -----
 
-On your Drupal 6 site, 50 nodes should automatically be created with the
-following data:
+On your Drupal 6 site, a number of nodes should automatically be created with
+the following data:
 
  * A content type called `legacy_type_one`
   * Should contain a select field `field_select` with items "one, two, three"
