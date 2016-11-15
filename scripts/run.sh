@@ -63,3 +63,6 @@ echo " =>      (Source files:) Files directory: /drupal6code"
 echo " => "
 echo " =>    PRESS ENTER WHEN THE ABOVE IS DONE."
 echo " => "
+# drush migrate-import --all
+# drush migrate-upgrade
+# drush migrate-status

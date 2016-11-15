@@ -1,9 +1,7 @@
-uuid: f79c7739-9c20-42df-9f07-b1bfd6ce7842
+uuid: 998a53de-e150-493d-96b5-cbaff96a1284
 langcode: en
 status: true
 dependencies: {  }
-_core:
-  default_config_hash: tOzM29FNHQjaVbgRaesxCM6HNbvT1uckMJe1tzgEDII
 id: upgrade_d6_menu_links
 migration_tags:
   - 'Drupal 6'

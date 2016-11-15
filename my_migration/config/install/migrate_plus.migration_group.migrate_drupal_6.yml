@@ -1,9 +1,7 @@
-uuid: 752edf29-9024-49e9-a21c-b0d3f0c877b0
+uuid: 43258c47-fb0a-499a-b7c4-82e6b7bf9523
 langcode: en
 status: true
 dependencies: {  }
-_core:
-  default_config_hash: QhlVBXII4zr4HzGFM1bPKKmHjeoeyUplV9mZCZ9xMjg
 id: migrate_drupal_6
 label: 'Import from Drupal 6'
 description: 'Migrations originally generated from drush migrate-upgrade --configure-only'
@@ -11,6 +9,4 @@ source_type: 'Drupal 6'
 module: null
 shared_configuration:
   source:
-    # This is the key which you can find in the settings.php file for Drupal 8
-    # and which defines the database for Drupal 6.
     key: upgrade

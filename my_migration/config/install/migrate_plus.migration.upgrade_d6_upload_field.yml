@@ -1,9 +1,7 @@
-uuid: 71d281ad-d842-4428-8da1-ec857d8ddf26
+uuid: 9f58a0a4-1c50-4c0b-9a1f-c898ccdb5f81
 langcode: en
 status: true
 dependencies: {  }
-_core:
-  default_config_hash: MELIm-rKvYnWdzIOVqqZ_Zfxd1Lm5ywQw_UAnaUYhVM
 id: upgrade_d6_upload_field
 migration_tags:
   - 'Drupal 6'

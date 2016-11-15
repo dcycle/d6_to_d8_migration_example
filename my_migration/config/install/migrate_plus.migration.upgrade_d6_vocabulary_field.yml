@@ -1,9 +1,7 @@
-uuid: dabeae9a-3b5a-40c1-a576-066bedf99bcc
+uuid: 09d8e7dc-9749-42ca-ae8b-d7df4f500988
 langcode: en
 status: true
 dependencies: {  }
-_core:
-  default_config_hash: 3VRrjLupOI7ilxDaT4OSMzpejJkxOqzprsEHJRGZj5M
 id: upgrade_d6_vocabulary_field
 migration_tags:
   - 'Drupal 6'
