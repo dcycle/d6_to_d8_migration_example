@@ -1,4 +1,4 @@
-uuid: a8bc3d80-4c7f-4483-b0b3-ffb8fa317b50
+uuid: b3e6555f-9c7a-4819-b86c-de97d809397b
 langcode: en
 status: true
 dependencies: {  }
@@ -10,7 +10,7 @@ label: Files
 source:
   plugin: d6_file
   constants:
-    source_base_path: /drupal6code
+    source_base_path: /drupal6code/
 process:
   fid: fid
   filename: filename

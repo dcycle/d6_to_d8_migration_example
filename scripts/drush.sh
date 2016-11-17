@@ -11,4 +11,4 @@ if [ "$2" ]; then
 fi
 
 docker-compose exec drupal8 /bin/bash -c \
-  "drush -l http://$(docker-compose port drupal 8 80) $1"
+  "drush -l http://$(docker-compose port drupal8 80) $1"

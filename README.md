@@ -2,7 +2,7 @@ Drupal 6 to Drupal 8 migration example
 =====
 
 This project attempts to demonstrate how typical data might be migrated from
-Drupal 6 to Drupal 8. `./scripts/run.sh` sets up everything for you in
+Drupal 6 to Drupal 8.2. `./scripts/run.sh` sets up everything for you in
 Docker containers, and tells you what you should do to accomplish the
 migration.
 
@@ -75,7 +75,7 @@ use your custom processors, you can use the following database information:
   * Database name: drupal
   * Database username: drupal
   * Database password: drupal
-  * (Source files:) Files directory: /drupal6code
+  * (Source files:) Files directory: /drupal6code _or_ http://drupal6
 
 Further resources
 -----

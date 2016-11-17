@@ -51,6 +51,7 @@ RUN drush dl \
 	-y
 
 ADD docker-resources/drupal6/run.sh /run.sh
+ADD docker-resources/drupal6/run-import.sh /run-import.sh
 ADD docker-resources/drupal6/run-post-install.sh /run-post-install.sh
 ADD docker-resources/drupal6/drupal6structure /var/www/html/sites/all/modules/features/drupal6structure
 

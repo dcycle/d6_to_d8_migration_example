@@ -16,7 +16,11 @@ RUN cd /var/www/html && drush dl migrate_tools migrate_plus -y
 # we need to specify that we want it be downloaded to the ./modules folder.
 RUN cd /var/www/html && drush dl migrate_upgrade --destination=modules -y
 
+# Can be useful for debugging the container
+RUN apt-get install -y vim
+
 ADD docker-resources/drupal8/run.sh /run.sh
+ADD docker-resources/drupal8/restore-newly-installed.sh /restore-newly-installed.sh
 ADD docker-resources/drupal8/settings.php-migrate.txt /settings.php-migrate.txt
 
 EXPOSE 80

@@ -1,4 +1,4 @@
-uuid: d65970f3-6015-41e5-b13f-b45b4d40baeb
+uuid: 36f5dad0-a33d-4e6f-bd5a-7cf18c9137e9
 langcode: en
 status: true
 dependencies: {  }
@@ -11,9 +11,6 @@ source:
   plugin: d6_node
   node_type: legacy_type_two
 process:
-  type:
-    plugin: default_value
-    value: new_node_type
   nid: tnid
   vid: vid
   langcode:

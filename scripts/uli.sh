@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Get a one-time login link on a container.
+# Get a one-time login link on a named container.
 #
 
 docker-compose exec "$1" /bin/bash -c \
