@@ -15,12 +15,12 @@ echo '[info] Waiting a few seconds for the MySQL container to warm up.'
 sleep 20
 
 echo '[info] Importing the Drupal 6 database.'
-docker-compose exec drupal6 /run-import.sh
+./scripts/exec.sh drupal6 '/run-import.sh'
 
 echo '[info] Building a new Drupal 8 site.'
 # Doing this now allows the Mysql container to warm up while the user installs
 # Drupal 6.
-docker-compose exec drupal8 /run.sh
+./scripts/exec.sh drupal8 '/run.sh'
 
 echo ' => '
 echo ' => If all went well you can now access your sites at:'

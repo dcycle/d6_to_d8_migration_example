@@ -10,7 +10,7 @@ set -e
 
 # Setting --legacy-root here seems to not do anything, see
 # https://www.drupal.org/node/2827914, however it can't hurt.
-docker-compose exec drupal8 /bin/bash -c 'drush cc drush && \
+./scripts/exec.sh drupal8 'drush cc drush && \
   drush migrate-upgrade \
     --configure-only --legacy-root=/drupal6code && \
   drush config-export --destination=/tmp/migrate && \

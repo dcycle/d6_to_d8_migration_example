@@ -6,6 +6,5 @@
 #
 set -e
 
-# https://github.com/docker/compose/issues/3379
-docker exec "$(docker-compose ps -q drupal6)" /bin/bash -c 'drush cc all'
-docker exec "$(docker-compose ps -q drupal6)" /bin/bash -c 'drush sql-dump > /db/db.sql'
+./scripts/exec.sh drupal6 'drush cc all'
+./scripts/exec.sh drupal6 'drush sql-dump > /db/db.sql'

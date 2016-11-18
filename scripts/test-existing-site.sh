@@ -4,4 +4,4 @@
 #
 set -e
 
-docker exec "$(docker-compose ps -q drupal8)" /bin/bash -c 'drush eval "my_migration_test()"'
+./scripts/exec.sh drupal8 'drush eval "my_migration_test()"'

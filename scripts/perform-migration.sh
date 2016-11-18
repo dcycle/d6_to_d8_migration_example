@@ -4,5 +4,4 @@
 #
 set -e
 
-docker-compose exec drupal8 /bin/bash -c 'drush \
-  migrate-upgrade --legacy-root=/drupal6code'
+./scripts/exec.sh drupal8 'drush migrate-upgrade --legacy-root=/drupal6code'

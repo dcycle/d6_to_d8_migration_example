@@ -4,4 +4,4 @@
 #
 set -e
 
-docker-compose exec drupal8 /bin/bash -c '/restore-newly-installed.sh'
+./scripts/exec.sh drupal8 '/restore-newly-installed.sh'

@@ -57,26 +57,24 @@ well:
 Your Drupal 6 site should now contain some data and your Drupal 8 site should
 be empty. Run the following command to import data from Drupal 6 to Drupal 8:
 
-    docker-compose exec drupal8 /bin/bash -c 'drush en -y my_migration'
-    docker-compose exec drupal8 /bin/bash -c 'drush cc drush'
-    docker-compose exec drupal8 /bin/bash -c 'drush migrate-status'
+    ./scripts/exec.sh drupal8 'drush en -y my_migration'
+    ./scripts/exec.sh drupal8 'drush cc drush'
+    ./scripts/exec.sh drupal8 'drush migrate-status'
 
 You can actually run the script like this:
 
-    docker-compose exec drupal8 /bin/bash -c 'drush migrate-import --all'
+    ./scripts/exec.sh drupal8 'drush migrate-import --all'
 
 The above will apply only those migrators that are defined in our
 my_migration module. To blindly migrate everything from Drupal 6
 to Drupal 8, you can run:
 
-    docker-compose exec drupal8 /bin/bash -c 'drush cc drush'
-    docker-compose exec drupal8 /bin/bash -c \
-      'drush migrate-upgrade --legacy-root=/drupal6code'
+    ./scripts/exec.sh drupal8 'drush cc drush'
+    ./scripts/exec.sh drupal8 'drush migrate-upgrade --legacy-root=/drupal6code'
 
 You can then modify the same node on Drupal 6 and Drupal 8 and run:
 
-    docker-compose exec drupal8 /bin/bash -c \
-      'drush migrate-import --all --update'
+    ./scripts/exec.sh drupal8 'drush migrate-import --all --update'
 
 This will **delete** the change you made to the Drupal 8 nodes
 re-import the change you made in Drupal 6.

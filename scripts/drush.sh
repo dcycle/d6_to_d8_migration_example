@@ -10,5 +10,4 @@ if [ "$2" ]; then
   exit 1
 fi
 
-docker-compose exec drupal8 /bin/bash -c \
-  "drush -l http://$(docker-compose port drupal8 80) $1"
+./scripts/exec.sh drupal8 "drush -l http://$(docker-compose port drupal8 80) $1"
