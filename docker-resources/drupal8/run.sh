@@ -6,14 +6,6 @@
 #
 set -e
 
-# In order to migrate from Drupal 6, we need access to the entire Drupal 6
-# codebase. When importing, Drupal 8 assumes we a path to the root of
-# Drupal 6, which is why we need the directory structure
-# sites/default/files.
-- ./docker-resources/drupal6/files:/drupal6code/sites/default/files
-- ./my_migration:/var/www/html/modules/custom/my_migration
-
-
 # Install Drupal.
 # In order to prevent the "unable to send mail" error, we are including
 # the "install_configure_form" line, which itself forces us to include the
