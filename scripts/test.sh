@@ -5,7 +5,7 @@
 set -e
 
 # Create the environment.
-#./scripts/run.sh
+./scripts/run.sh
 
 # Run the migration as described in the README.md
 # We will use docker exec instead of docker-compose exec because of
