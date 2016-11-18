@@ -60,6 +60,7 @@ services:
     ports:
       - "80"
     volumes:
+      - ./docker-resources/drupal6/db:/db
       # Share the entire codebase with the Docker host, so it can in turn be
       # shard with the Drupal 8 container, which needs it for the migration.
       - ./docker-resources/drupal6/files:/var/www/html/sites/default/files
