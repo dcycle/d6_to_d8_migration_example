@@ -24,6 +24,10 @@ the yml files in `my_migration/config/install`, which can be modified.
 Specifically, `migrate_plus.migration.upgrade_d6_node_legacy_type_one.yml` and
 `migrate_plus.migration.upgrade_d6_node_legacy_type_two.yml` were modified
 
+Known issues and troubleshooting
+-----
+
+ * Please consult the [issue queue](https://github.com/alberto56/d6_to_d8_migration_example/issues) and report any issues there.
 
 Prerequisites
 -----
@@ -83,8 +87,6 @@ Further resources
  * The [Migrate Plus](http://drupal.org/project/migrate_plus) module.
  * [Drupal to Drupal 8 via Migrate API](https://www.chapterthree.com/blog/drupal-to-drupal-8-via-migrate-api)
    by Minnur Ynusov, Chapter Three Blog, April 6, 2016.
- * [Migrate Your Way to Drupal 8 Greatness](https://www.youtube.com/watch?v=_Muaoq3RsYQ),
-   Benjamin Melançon (mlncn), July 27, 2016.
  * [Custom Drupal-to-Drupal Migrations with Migrate Tools](https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools),
    by William Hetherington, Drupalize.me, April 26, 2016.
  * [Drupal 8 Migrations, part 4: Migrating Nodes from Drupal 7](http://www.metaltoad.com/blog/migrating-nodes-drupal-7-to-drupal-8), By Keith Dechant, December 10th, 2014, later upgraded for Drupal 8.2.
