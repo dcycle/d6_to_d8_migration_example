@@ -19,6 +19,10 @@ In this example:
  * `field_select` and `field_anything` should be available in `new_node_type`.
  * `field_image` should be imported.
  * Content of type `page` and `story` should be ignored.
+ * We are including automated tests and continuous integration to make sure the
+   import happened correctly:
+
+[![CircleCI](https://circleci.com/gh/alberto56/d6_to_d8_migration_example/tree/master.svg?style=svg)](https://circleci.com/gh/alberto56/d6_to_d8_migration_example/tree/master)
 
 This was accomplished by following the instructions in the article [Custom Drupal-to-Drupal Migrations with Migrate Tools](https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools), by William Hetherington, Drupalize.me, April 26, 2016; this resulted in
 the yml files in `my_migration/config/install`, which can be modified.
