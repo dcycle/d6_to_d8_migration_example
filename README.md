@@ -12,12 +12,13 @@ This very simple examples installs a Drupal 6 site with two content types:
  * `legacy_type_two` which has a `field_anything` text field.
  * Both nodes have a `field_image` field.
 
-In this example, we want to merge these two content types:
+In this example:
 
- * all `legacy_type_one` and `legacy_type_two` nodes should be imported as
+ * All `legacy_type_one` and `legacy_type_two` nodes should be imported as
    nodes of type `new_node_type`.
  * `field_select` and `field_anything` should be available in `new_node_type`.
  * `field_image` should be imported.
+ * Content of type `page` and `story` should be ignored.
 
 This was accomplished by following the instructions in the article [Custom Drupal-to-Drupal Migrations with Migrate Tools](https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools), by William Hetherington, Drupalize.me, April 26, 2016; this resulted in
 the yml files in `my_migration/config/install`, which can be modified.
@@ -37,7 +38,7 @@ Prerequisites
 Instructions
 -----
 
-Start up the system.
+### 1. Start up the system
 
     ./scripts/run.sh
 
@@ -45,10 +46,42 @@ Follow the instructions on the screen. Here is what should happen if all goes
 well:
 
  * New Drupal 6 and 8 websites will be installed.
- * You will be asked to go through the Drupal 6 GUI installer.
- * Once that is done, a series of new content types and new generated content
-   will be created. (See the Drupal 6 content section below for details.)
  * You will be given login links to your Drupal 6 and Drupal 8 sites.
+
+### 2. Perform imports
+
+Your Drupal 6 site should now contain some data and your Drupal 8 site should
+be empty. Run the following command to import data from Drupal 6 to Drupal 8:
+
+    docker-compose exec drupal8 /bin/bash -c 'drush en -y my_migration'
+    docker-compose exec drupal8 /bin/bash -c 'drush cc drush'
+    docker-compose exec drupal8 /bin/bash -c 'drush migrate-status'
+
+You can actually run the script like this:
+
+    docker-compose exec drupal8 /bin/bash -c 'drush migrate-import --all'
+
+The above will apply only those migrators that are defined in our
+my_migration module. To blindly migrate everything from Drupal 6
+to Drupal 8, you can run:
+
+    docker-compose exec drupal8 /bin/bash -c 'drush cc drush'
+    docker-compose exec drupal8 /bin/bash -c \
+      'drush migrate-upgrade --legacy-root=/drupal6code'
+
+You can then modify the same node on Drupal 6 and Drupal 8 and run:
+
+    docker-compose exec drupal8 /bin/bash -c \
+      'drush migrate-import --all --update'
+
+This will **delete** the change you made to the Drupal 8 nodes
+re-import the change you made in Drupal 6.
+
+If you want to reset Drupal 8 to the state it was in before you
+enabled my_migration (for example if you want to modify the yml files
+in ./my-migration/config/install), you can run:
+
+    ./scripts/restore-newly-installed.sh
 
 Difference between status, upgrade and import
 -----
