@@ -53,6 +53,11 @@ class MyMigrationTest {
         }
       }
     }
+    if (isset($info['filefields'])) {
+      foreach ($info['filefields'] as $name => $value) {
+        $this->checkFileField($node, $name, $value);
+      }
+    }
     if (isset($info['type'])) {
       if ($node->getType() != $info['type']) {
         $this->errors[] = 'For ' . $nid . ', type is not ' . $info['type'];
@@ -77,6 +82,9 @@ class MyMigrationTest {
         'field_anything' => 'qUXeTn9QmZFJ',
       ),
       'type' => 'new_node_type',
+      'filefields' => array(
+        'field_image' => 'public://badge_rattlesnake.png',
+      ),
     ));
     $this->checkNode(189, array(
       'fields' => array(
@@ -94,6 +102,21 @@ class MyMigrationTest {
     ));
 
     $this->result = 'success';
+  }
+
+  /**
+   * Make sure a file field is set.
+   */
+  function checkFileField($node, $name, $value) {
+    $id = $node->get($name)->get(0)->get('target_id');
+    $uri = \Drupal\file\Entity\File::load((int)$id)->getFileUri();
+    if ($uri != $value) {
+      $this->errors[] = 'For ' . $node->id() . ', field ' . $name . ' is not ' . $value;
+      return;
+    }
+    else {
+      $this->output[] = 'For ' . $node->id() . ', field ' . $name . ' is ' . $value;
+    }
   }
 
   /**
