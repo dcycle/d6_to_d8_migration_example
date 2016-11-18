@@ -1,0 +1,4 @@
+type: module
+name: My Migration Test
+description: 'Test the migration to make sure all went well.'
+core: 8.x

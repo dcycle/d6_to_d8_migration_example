@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ *
+ * Includes functions for testing the migration.
+ */
+
+use Drupal\my_migration_test\MyMigrationTest;
+
+/**
+ * Run tests to make sure the migration occurred as expected.
+ *
+ * Meant to be called on a working environment using
+ * drush eval 'my_migration_test()'.
+ */
+function my_migration_test() {
+  $tester = new MyMigrationTest();
+
+  $tester->runTestProcessed();
+
+  print_r('[info] starting test for the processed migration' . PHP_EOL);
+  print_r('Output is:' . PHP_EOL);
+  print_r(implode(PHP_EOL, $tester->output()) . PHP_EOL);
+  print_r('Errors (if any) are:' . PHP_EOL);
+  print_r(implode(PHP_EOL, $tester->errors()) . PHP_EOL);
+  if ($tester->result() == 'success') {
+    print_r('[info] finishing test successfully.'. PHP_EOL);
+  }
+  else {
+    print_r('[error] Test finished with an error' . PHP_EOL);
+    print_r('[error] Result is ' . $tester->result(). PHP_EOL);
+    die();
+  }
+}

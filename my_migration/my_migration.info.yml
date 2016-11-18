@@ -6,3 +6,4 @@ dependencies:
   - migrate_drupal
   - migrate_plus
   - my_migration:my_migration_setup
+  - my_migration:my_migration_test
