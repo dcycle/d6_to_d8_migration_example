@@ -1,0 +1,19 @@
+uuid: 3d7c68a6-c5c4-40fb-ab6f-adee42485b71
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_anything
+    - node.type.new_node_type
+id: node.new_node_type.field_anything
+field_name: field_anything
+entity_type: node
+bundle: new_node_type
+label: field_anything
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

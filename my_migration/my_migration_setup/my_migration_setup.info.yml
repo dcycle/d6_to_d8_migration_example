@@ -1,0 +1,4 @@
+type: module
+name: My Migration Setup
+description: 'Create the target content types required for the migration. This module is enabled as a dependency of my_migration.'
+core: 8.x

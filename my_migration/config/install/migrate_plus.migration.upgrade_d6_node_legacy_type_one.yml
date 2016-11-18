@@ -59,7 +59,7 @@ process:
           source: format
 destination:
   plugin: 'entity:node'
-  default_bundle: legacy_type_one
+  default_bundle: new_node_type
 migration_dependencies:
   required:
     - upgrade_d6_user

@@ -1,0 +1,11 @@
+uuid: 216b30a1-be4b-4cf7-91c5-e74e1faec7e1
+langcode: en
+status: true
+dependencies: {  }
+name: new_node_type
+type: new_node_type
+description: new_node_type
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false
