@@ -56,11 +56,12 @@ Instructions
 
     ./scripts/run.sh
 
-Follow the instructions on the screen. Here is what should happen if all goes
-well:
+If all goes well:
 
- * New Drupal 6 and 8 websites will be installed.
+ * A Drupal 6 with custom content types (and content) will be created.
+ * A brand new empty Drupal 8 site will be created.
  * You will be given login links to your Drupal 6 and Drupal 8 sites.
+ * You can follow the instructions below to actually perform the migration.
 
 ### 2. Perform imports
 
