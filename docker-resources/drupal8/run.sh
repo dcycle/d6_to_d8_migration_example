@@ -38,5 +38,5 @@ cd /var/www/html && \
 # Keep a fresh copy of the database in case we mess something up during
 # development or testing. Then we'll be able restore with:
 # ./scripts/restore-newly-installed.sh
-drush sql-dump > /newly-installed-database.sql
-cp -r /var/www/html/sites/default/files /newly-installed-files
+drush sql-dump > /newly-installed/database.sql
+cp -r /var/www/html/sites/default/files /newly-installed/files
