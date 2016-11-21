@@ -66,22 +66,15 @@ If all goes well:
 ### 2. Perform imports
 
 Your Drupal 6 site should now contain some data and your Drupal 8 site should
-be empty. Run the following command to import data from Drupal 6 to Drupal 8:
+be empty. Run the following command to get information about the import:
 
     ./scripts/exec.sh drupal8 'drush en -y my_migration'
     ./scripts/exec.sh drupal8 'drush cc drush'
     ./scripts/exec.sh drupal8 'drush migrate-status'
 
-You can actually run the script like this:
+You can actually run the import like this:
 
     ./scripts/exec.sh drupal8 'drush migrate-import --all'
-
-The above will apply only those migrators that are defined in our
-my_migration module. To blindly migrate everything from Drupal 6
-to Drupal 8, you can run:
-
-    ./scripts/exec.sh drupal8 'drush cc drush'
-    ./scripts/exec.sh drupal8 'drush migrate-upgrade --legacy-root=/drupal6code'
 
 You can then modify the same node on Drupal 6 and Drupal 8 and run:
 
@@ -90,8 +83,16 @@ You can then modify the same node on Drupal 6 and Drupal 8 and run:
 This will **delete** the change you made to the Drupal 8 nodes
 re-import the change you made in Drupal 6.
 
+The above process will apply only those migrators that are defined in our
+my_migration module, which processes content before migrating it. To blindly 
+migrate _everything_ from Drupal 6 to Drupal 8, you can run:
+
+    ./scripts/restore-newly-installed.sh
+    ./scripts/exec.sh drupal8 'drush cc drush'
+    ./scripts/exec.sh drupal8 'drush migrate-upgrade --legacy-root=/drupal6code'
+
 If you want to reset Drupal 8 to the state it was in before you
-enabled my_migration (for example if you want to modify the yml files
+performed a migration (for example if you want to modify the yml files
 in ./my-migration/config/install), you can run:
 
     ./scripts/restore-newly-installed.sh
