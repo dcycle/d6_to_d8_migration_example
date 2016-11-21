@@ -11,7 +11,11 @@ the migraiton process.
 Docker containers, and tells you what you should do to accomplish the
 migration.
 
-This very simple examples installs a Drupal 6 site with two content types:
+This project will install, in Docker containers, a Drupal 6 site with some
+custom content; a brand new empty Drupal 8 site; and give you instructions
+on how to perform a migration from one to the other.
+
+The Drupal 6 site has two content types with associated content:
 
  * `legacy_type_one` which has a `field_select` field with three options.
  * `legacy_type_two` which has a `field_anything` text field.
