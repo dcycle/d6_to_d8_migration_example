@@ -4,6 +4,9 @@ Drupal 6 to Drupal 8 migration example
 This project attempts to demonstrate how typical data might be migrated from
 Drupal 6 to Drupal 8.2.
 
+This project is self-contained and can be run as-is; it is meant to demonstrate
+the migraiton process.
+
 `./scripts/run.sh` sets up everything for you in
 Docker containers, and tells you what you should do to accomplish the
 migration.
@@ -12,7 +15,8 @@ This very simple examples installs a Drupal 6 site with two content types:
 
  * `legacy_type_one` which has a `field_select` field with three options.
  * `legacy_type_two` which has a `field_anything` text field.
- * Both nodes have a `field_image` field.
+ * Both node types have a `field_image` field.
+ * There are a hundred nodes in the Drupal 6 site.
 
 In this example:
 
@@ -28,7 +32,7 @@ In this example:
 
 This was accomplished by following the instructions in the article [Custom Drupal-to-Drupal Migrations with Migrate Tools](https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools), by William Hetherington, Drupalize.me, April 26, 2016; this resulted in
 the yml files in `my_migration/config/install`, which can be modified.
-Specifically, `migrate_plus.migration.upgrade_d6_node_legacy_type_one.yml` and
+Amont others, `migrate_plus.migration.upgrade_d6_node_legacy_type_one.yml` and
 `migrate_plus.migration.upgrade_d6_node_legacy_type_two.yml` were modified
 
 Known issues and troubleshooting
@@ -100,16 +104,16 @@ I have found the nuances between these to be confusing...
  * `drush migrate-upgrade --configure-only --legacy-root=/drupal6code` will
    generate default migrators and put them in the database. You can then run
    `drush config-export --destination=/tmp/migrate` to get the .yml files, which
-   you can then put in your migration module (and modify to customize). You
-   might need to make a few changes: (1) set the source_base_path in the yml
-   files as described in [this issue](https://www.drupal.org/node/2827914);
-   (2) set the key to "upgrade" in `./my_migration/config/install/migrate_plus.migration_group.migrate_drupal_6.yml`.
+   you can then put in your migration module (and modify to customize). If issue
+   [#2828808 Migrate Upgrades:migrate-import does not link imported files to their file fields](https://www.drupal.org/node/2828808)
+   is still open you might need to make a modification to your yml files for images
+   to be imported correctly.
  * `drush migrate-import --all` runs the import based on the migrators in your
    custom module.
  * `drush migrate-status` tells you what the migrator will do without actually
    doing it.
 
-Note 1: If you run the upgrade by visiting the /upgrade page, which will not
+Note 1: If you run the upgrade by visiting the GUI at the /upgrade page, which will not
 use your custom processors, you can use the following database information:
 
   * Database host: drupal6database
@@ -121,21 +125,11 @@ use your custom processors, you can use the following database information:
 Further resources
 -----
 
- * The [Migrate Plus](http://drupal.org/project/migrate_plus) module.
+ * The [Migrate Plus](http://drupal.org/project/migrate_plus) module by mikeryan.
+ * The [Migrate Tools](http://drupal.org/project/migrate_tools) module by mikeryan.
+ * The [Migrate Upgrade](http://drupal.org/project/migrate_upgrade) module by mikeryan.
  * [Drupal to Drupal 8 via Migrate API](https://www.chapterthree.com/blog/drupal-to-drupal-8-via-migrate-api)
    by Minnur Ynusov, Chapter Three Blog, April 6, 2016.
  * [Custom Drupal-to-Drupal Migrations with Migrate Tools](https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools),
    by William Hetherington, Drupalize.me, April 26, 2016.
  * [Drupal 8 Migrations, part 4: Migrating Nodes from Drupal 7](http://www.metaltoad.com/blog/migrating-nodes-drupal-7-to-drupal-8), By Keith Dechant, December 10th, 2014, later upgraded for Drupal 8.2.
-
-Drupal 6 content
------
-
-On your Drupal 6 site, a number of nodes should automatically be created with
-the following data:
-
- * A content type called `legacy_type_one`
-  * Should contain a select field `field_select` with items "one, two, three"
- * A content type called `legacy_type_two`
-  * Should contain a text field `field_anything` which can contain anything.
- * Both content types should have a field called `field_image` with an image.
