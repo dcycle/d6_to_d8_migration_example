@@ -32,12 +32,15 @@ if [ $(lxc-attach 2>/dev/null >/dev/null) ] || [ "$3" == 'no-exec' ]; then
   # existing container (drupal8), run-drupal8.sh will create a new drupal8
   # container linked to our database, run a command, and destroy the
   # container after
-  if [ "$COMPOSECONTAINER" != 'drupal8' ]; then
-    echo "Sorry, you cannot call exec.sh on a container other than drupal8"
-    echo "for the time being."
+  if [ "$COMPOSECONTAINER" == 'drupal8' ]; then
+    ./scripts/run-drupal8.sh "$COMMAND"
+  elif [ "$COMPOSECONTAINER" == 'drupal6' ]; then
+    ./scripts/run-drupal6.sh "$COMMAND"
+  else
+    echo "Sorry, you cannot call ./scripts/exec.sh on a container other than"
+    echo "drupal8 or drupal6 for the time being."
     exit 1
   fi
-  ./scripts/run-drupal8.sh "$COMMAND"
 else
   # Docker-compose exec is not reliable, use docker exec instead.
   # https://github.com/docker/compose/issues/3379
