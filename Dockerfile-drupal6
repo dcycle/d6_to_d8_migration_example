@@ -55,4 +55,8 @@ ADD docker-resources/drupal6/run-import.sh /run-import.sh
 ADD docker-resources/drupal6/run-post-install.sh /run-post-install.sh
 ADD docker-resources/drupal6/drupal6structure /var/www/html/sites/all/modules/features/drupal6structure
 
+RUN cp /var/www/html/sites/default/default.settings.php ./sites/default/settings.php
+RUN echo '$db_url = "mysql://drupal:drupal@drupal6database/drupal";' >> \
+  /var/www/html/sites/default/settings.php
+
 EXPOSE 80

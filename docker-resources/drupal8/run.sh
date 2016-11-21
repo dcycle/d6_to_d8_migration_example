@@ -15,12 +15,9 @@ cd /var/www/html && \
   drush si \
   --account-name=admin \
   --account-pass=admin \
-  --db-url=mysql://drupal:drupal@drupal8database/drupal \
   -y \
   standard \
   install_configure_form.update_status_module='array(FALSE,FALSE)'
-
-cat /settings.php-migrate.txt >> /var/www/html/sites/default/settings.php
 
 # We are purposefully not enabling my_migration here, because we want to have
 # a chance to run and debug ./scripts/update-migration-config.sh before

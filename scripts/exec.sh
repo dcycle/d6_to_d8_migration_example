@@ -2,6 +2,9 @@
 #
 # Executes a command on a container.
 #
+# Pass 'no-exec' as a THIRD argument to simulate what would happen on a
+# Docker environment with an LXC driver which does not support exec.
+#
 set -e
 
 if [ -z "$1" ]; then
@@ -16,12 +19,25 @@ COMPOSECONTAINER="$1"
 CONTAINER="$(docker-compose ps -q "$COMPOSECONTAINER")"
 COMMAND="$2"
 
-if [ $(lxc-attach 2>/dev/null >/dev/null) ]; then
+if [ "$3" == 'no-exec' ]; then
+  echo '[notice] Simulating en environment where docker exec is not supported.'
+fi
+
+if [ $(lxc-attach 2>/dev/null >/dev/null) ] || [ "$3" == 'no-exec' ]; then
   # The LXC driver does not support exec, see
-  # https://circleci.com/docs/docker/#docker-exec
-  sudo lxc-attach -n \
-    "$(docker inspect --format "{{.Id}}" "$CONTAINER")" \
-    -- bash -c "$COMMAND"
+  # https://circleci.com/docs/docker/#docker-exec; the solution suggested in
+  # the documentation does not work, so we will try a different approach:
+  # Because Circle uses LXC and does not support exec, we'll use
+  # our run-drupal8 script instead. Instead of executing a command on an
+  # existing container (drupal8), run-drupal8.sh will create a new drupal8
+  # container linked to our database, run a command, and destroy the
+  # container after
+  if [ "$COMPOSECONTAINER" != 'drupal8' ]; then
+    echo "Sorry, you cannot call exec.sh on a container other than drupal8"
+    echo "for the time being."
+    exit 1
+  fi
+  ./scripts/run-drupal8.sh "$COMMAND"
 else
   # Docker-compose exec is not reliable, use docker exec instead.
   # https://github.com/docker/compose/issues/3379

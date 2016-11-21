@@ -21,6 +21,10 @@ RUN apt-get install -y vim
 
 ADD docker-resources/drupal8/run.sh /run.sh
 ADD docker-resources/drupal8/restore-newly-installed.sh /restore-newly-installed.sh
-ADD docker-resources/drupal8/settings.php-migrate.txt /settings.php-migrate.txt
+ADD docker-resources/drupal8/settings.php-database.txt /settings.php-database.txt
+
+RUN cp /var/www/html/sites/default/default.settings.php \
+  /var/www/html/sites/default/settings.php
+RUN cat /settings.php-database.txt >> /var/www/html/sites/default/settings.php 
 
 EXPOSE 80
