@@ -1,6 +1,6 @@
 name: My Migration
 type: module
-description: 'Demonstrates how you can manage your migration from D6 to D7.'
+description: 'Demonstrates how you can manage your migration from D6 to D8.'
 core: '8.x'
 dependencies:
   - migrate_drupal
