@@ -31,9 +31,9 @@ class MyMigrationTest {
    * Check a node and make sure it has the correct values.
    */
   public function checkNode($nid, $info) {
-    $info = array(
+    $info = $info + array(
       'exists' => TRUE,
-    ) + $info;
+    );
 
     $node = \Drupal\node\Entity\Node::load($nid);
     if ($info['exists'] === FALSE) {
