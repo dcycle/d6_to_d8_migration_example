@@ -84,7 +84,7 @@ This will **delete** the change you made to the Drupal 8 nodes
 re-import the change you made in Drupal 6.
 
 The above process will apply only those migrators that are defined in our
-my_migration module, which processes content before migrating it. To blindly 
+my_migration module, which processes content before migrating it. To blindly
 migrate _everything_ from Drupal 6 to Drupal 8, you can run:
 
     ./scripts/restore-newly-installed.sh
@@ -96,6 +96,158 @@ performed a migration (for example if you want to modify the yml files
 in ./my-migration/config/install), you can run:
 
     ./scripts/restore-newly-installed.sh
+
+Preparing your own migration: step-by-step guide
+-----
+
+You will end up with a Drupal 8 database dump (`.mysql` file) you can import to
+your host of choice. Our approach will be to build a small model of our
+Drupal 6 site using [Features](https://drupal.org/project/features), then
+use that to import generated content to our Drupal 8 site.
+
+### Step one: prepare what you need
+
+ * Make sure you have the latest version of Docker installed locally.
+ * Make sure you have a full mysql dump of your Drupal 6 database.
+ * Make sure you have your entire Drupal 6 codebase including Drupal root.
+ * If your legacy site is using multisite, you might need to adapt the steps
+   below.
+
+### Step two: create a _feature_ based on your legacy Drupal 6 site
+
+Make sure the `features` and `features_extra` modules are on your Drupal 6 site,
+and enable `features` and `fe_taxonomy`.
+
+ * Log in as user 1 on your Drupal 6 site -- preferably a development
+   environment, local or remote.
+ * Go the edit each one of your vocabularies and assign it a "machine name".
+ * Go to /admin/build/features/create and create a new feature named
+   drupal6structure which should contain the full list of elements of the
+   following types (not only those elements you want, but all of them):
+   CCK: Content, Content type: node, Dependencies, Vocabularies:
+   fe_taxonomy_vocabulary. Do not select anything else.
+ * Download it to your computer.
+ * If the list at /admin/build/features contains features which have relevant
+   elements of type CCK: Content, Content type: node, you may need to tweak
+   the following steps.
+ * Copy _all_ contrib modules _except_ cck, devel, features, filefield and
+   imagefield in your legacy codebase _into_ the feature you just downloaded.
+
+### Step three: download a working copy of this project
+
+If you want to track your migration project in its own repo, you can also fork
+this project.
+
+    cd ~/Desktop
+    git clone https://github.com/alberto56/d6_to_d8_migration_example.git
+    cd ./d6_to_d8_migration_example
+
+### Step four: modify this project to contain your own feature
+
+Place the feature your downloaded earlier at
+`./docker-resources/drupal6/drupal6structure`.
+
+### Step five: create the migration environment
+
+    ./scripts/run.sh
+
+### Step six: manually fetch dependencies of your drupal6structure
+
+The above will import the sample Drupal 6 database with its `legacy_type_one`
+and `legacy_type_two` into a Drupal 6 environment. We will replace these below
+with elements defined by your feature.
+
+    ./scripts/run-drupal6.sh "drush dis -y drupal6structure"
+    ./scripts/run-drupal6.sh "drush pm-uninstall -y drupal6structure"
+    ./scripts/run-drupal6.sh "drush en -y drupal6structure"
+    ./scripts/run-drupal6.sh "drush cc drush && drush fra -y"
+
+If this tells you there are unmet dependencies, make sure you placed your
+contrib modules in your legacy codebase _into_ the feature you downloaded (see
+above) previously and restart from step two, above.
+
+If certain modules are giving you trouble (for example, not meeting mimumum
+requirements and refusing to install), you might have luck by removing
+them from the dependency list and restarting at step two.
+
+### Step seven: create a representative content on your new site
+
+Log into the Drupal 6 site:
+
+    ./scripts/uli.sh drupal6
+
+You should create one node of each content type (including those you do not want
+to import), with all fields filled in with realistic content, including files
+and pictures, as well as add picture support to users at /admin/user/settings
+and add a picture to user 1.
+
+The idea is to create a Drupal 6 site from scratch to be as representative as
+possible of your real database without the corruption and bloat of the latter.
+
+Note: image uploads will not generate thumbnails on the D6 environment, but
+everything will still work.
+
+You might want to take note of the nodes to check, for example:
+
+ * node 34 of type x should not exist in target.
+ * node 37 of type y should have a valid image in field_my_image.
+ * ...
+
+### Step eight: export the Drupal 6 database
+
+    ./scripts/run-drupal6.sh "drush cc all && drush sql-dump > /db/db.sql"
+
+### Step nine: start developing the migration code
+
+    ./scripts/run.sh
+
+Will confirm everything is going well until now; log onto your D6 site and
+confirm the database was imported properly.
+
+At this point the migration scripts are still designed for the original
+sample D6 content (legacy_type_two, etc). Update these by typing:
+
+    ./scripts/update-migration-config.sh
+
+The above will update the migration scripts in `./my_migration/config/install`.
+
+You will need to tweak the migration node yml files as per
+[this issue](https://www.drupal.org/node/2828808) in order for images to be
+properly imported.
+
+### Step ten: test the migration code
+
+At this point you can start the following cycle iteratively until you get your
+migration code working as desired:
+
+Brings your D8 site to a pristine state:
+
+    ./scripts/restore-newly-installed.sh
+
+Run your migration:
+
+    ./scripts/exec.sh drupal8 'drush en -y my_migration'
+    ./scripts/exec.sh drupal8 'drush cc drush'
+    ./scripts/exec.sh drupal8 'drush migrate-import --all'
+
+Check the results by opening the same node on your Drupal 6 and Drupal 8 sites.
+
+    ./scripts/uli.sh drupal6
+    ./scripts/uli.sh drupal8
+
+Make sure the data you noted in step 7 has been migrated (or ignored) as
+expected:
+
+  * node 34 of type x should not exist in target.
+  * node 37 of type y should have a valid image in field_my_image.
+  * ...
+
+To run automated tests you can modify
+`./my_migration/my_migration_test/src/MyMigrationTest.php` and run:
+
+    ./scripts/scripts-existing-site.sh
+
+Fix what needs fixing, and repeat!
 
 Difference between status, upgrade and import
 -----
