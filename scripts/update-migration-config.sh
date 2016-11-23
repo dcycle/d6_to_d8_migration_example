@@ -20,5 +20,3 @@ set -e
     /var/www/html/modules/custom/my_migration/config/install/'
 
 echo '[info] Updated files in ./my_migration/config/install.'
-echo '       Please make sure the key in ./my_migration/config/install/migrate_plus.migration_group.migrate_drupal_6.yml'
-echo '       is "upgrade"'
