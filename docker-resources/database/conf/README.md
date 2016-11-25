@@ -1,1 +1,1 @@
-max_allowed_packet = 256M
+Override configuration, see https://hub.docker.com/_/mysql/.
