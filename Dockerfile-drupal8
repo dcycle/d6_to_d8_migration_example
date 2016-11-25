@@ -25,6 +25,9 @@ ADD docker-resources/drupal8/settings.php-database.txt /settings.php-database.tx
 
 RUN cp /var/www/html/sites/default/default.settings.php \
   /var/www/html/sites/default/settings.php
-RUN cat /settings.php-database.txt >> /var/www/html/sites/default/settings.php 
+RUN cat /settings.php-database.txt >> /var/www/html/sites/default/settings.php
+
+# Avoid memory limits with large database imports.
+RUN echo 'memory_limit = 512M' >> /usr/local/etc/php/php.ini
 
 EXPOSE 80
