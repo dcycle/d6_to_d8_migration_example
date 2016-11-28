@@ -3,15 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_select
+    - field.storage.node.field_new_select
     - node.type.new_node_type
   module:
     - options
-id: node.new_node_type.field_select
-field_name: field_select
+id: node.new_node_type.field_new_select
+field_name: field_new_select
 entity_type: node
 bundle: new_node_type
-label: field_select
+label: field_new_select
 description: ''
 required: false
 translatable: true

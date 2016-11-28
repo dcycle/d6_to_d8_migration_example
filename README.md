@@ -27,6 +27,7 @@ In this example:
  * All `legacy_type_one` and `legacy_type_two` nodes should be imported as
    nodes of type `new_node_type`.
  * `field_select` and `field_anything` should be available in `new_node_type`.
+ * `field_select` should be renamed to `field_new_select`.
  * `field_image` should be imported.
  * Content of type `page` and `story` should be ignored.
  * We are including automated tests and continuous integration to make sure the

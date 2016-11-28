@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.new_node_type.field_image
-    - field.field.node.new_node_type.field_select
+    - field.field.node.new_node_type.field_new_select
     - field.field.node.new_node_type.field_anything
     - image.style.thumbnail
     - node.type.new_node_type
@@ -37,7 +37,7 @@ content:
       progress_indicator: bar
       preview_image_style: thumbnail
     third_party_settings: {  }
-  field_select:
+  field_new_select:
     weight: 31
     type: options_select
     settings: {  }

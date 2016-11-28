@@ -38,7 +38,7 @@ process:
     source: field_image
     # See https://www.drupal.org/node/2828808
     migration: upgrade_d6_file
-  field_select:
+  field_new_select:
     plugin: iterator
     source: field_select
     process:

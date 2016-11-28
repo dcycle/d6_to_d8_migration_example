@@ -5,8 +5,8 @@ dependencies:
   module:
     - node
     - options
-id: node.field_select
-field_name: field_select
+id: node.field_new_select
+field_name: field_new_select
 entity_type: node
 type: list_string
 settings:

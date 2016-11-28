@@ -90,7 +90,7 @@ class MyMigrationTest {
       'fields' => array(
         'title' => 'Diam Gilvus',
         'body' => 'node (legacy_type_one) - Interdico',
-        'field_select' => 'one',
+        'field_new_select' => 'one',
       ),
       'type' => 'new_node_type',
     ));
