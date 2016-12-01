@@ -44,11 +44,13 @@ Known issues and troubleshooting
 -----
 
  * Please consult the [issue queue](https://github.com/alberto56/d6_to_d8_migration_example/issues) and report any issues there.
+ * "MySQL server gone away" and memory issues have in my experience been linked to host system resources. Increase your RAM and disk space.
+ * Using Docker on Mac OS X, you might get a MySQL container status perpetually at "Restarting (1)". This might be linked to your Docker data taking up too much space. Doing a factory reset of Docker in the preferences has fixed this for me.
 
 Prerequisites
 -----
 
- * Docker (latest version).
+ * Docker (latest version) and Docker-compose (latest version); tested using Docker for mac OS native.
 
 Instructions
 -----
