@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ *
+ * Includes functions for running the migration.
+ */
+
+use Drupal\my_migration\MyMigration;
+
+/**
+ * Run post migration steps.
+ */
+function my_migration_post_migrate($nid) {
+  $migrator = new MyMigration();
+
+  $migrator->runPostMigrate($nid);
+}
+
+function my_migration_cleanup() {
+  $migrator = new MyMigration();
+
+  $migrator->cleanup();
+}
