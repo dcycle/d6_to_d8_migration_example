@@ -33,7 +33,7 @@ In this example:
  * We are including automated tests and continuous integration to make sure the
    import happened correctly:
 
-[![CircleCI](https://circleci.com/gh/alberto56/d6_to_d8_migration_example/tree/master.svg?style=svg)](https://circleci.com/gh/alberto56/d6_to_d8_migration_example/tree/master)
+[![CircleCI](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/master.svg?style=svg)](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/master)
 
 This was accomplished by following the instructions in the article [Custom Drupal-to-Drupal Migrations with Migrate Tools](https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools), by William Hetherington, Drupalize.me, April 26, 2016; this resulted in
 the yml files in `my_migration/config/install`, which can be modified.
@@ -43,7 +43,7 @@ Amont others, `migrate_plus.migration.upgrade_d6_node_legacy_type_one.yml` and
 Known issues and troubleshooting
 -----
 
- * Please consult the [issue queue](https://github.com/alberto56/d6_to_d8_migration_example/issues) and report any issues there.
+ * Please consult the [issue queue](https://github.com/dcycle/d6_to_d8_migration_example/issues) and report any issues there.
  * "MySQL server gone away" and memory issues have in my experience been linked to host system resources. Increase your RAM and disk space.
  * Using Docker on Mac OS X, you might get a MySQL container status perpetually at "Restarting (1)". This might be linked to your Docker data taking up too much space. Doing a factory reset of Docker in the preferences has fixed this for me.
 
