@@ -5,7 +5,7 @@ This project attempts to demonstrate how typical data might be migrated from
 Drupal 6 to Drupal 8.2.
 
 This project is self-contained and can be run as-is; it is meant to demonstrate
-the migraiton process.
+the migration process.
 
 `./scripts/run.sh` sets up everything for you in
 Docker containers, and tells you what you should do to accomplish the
