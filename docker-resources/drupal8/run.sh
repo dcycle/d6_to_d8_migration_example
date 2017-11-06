@@ -17,7 +17,8 @@ cd /var/www/html && \
   --account-pass=admin \
   -y \
   standard \
-  install_configure_form.update_status_module='array(FALSE,FALSE)'
+  install_configure_form.enable_update_status_module=NULL \
+  install_configure_form.enable_update_status_emails=NULL
 
 # We are purposefully not enabling my_migration here, because we want to have
 # a chance to run and debug ./scripts/update-migration-config.sh before
