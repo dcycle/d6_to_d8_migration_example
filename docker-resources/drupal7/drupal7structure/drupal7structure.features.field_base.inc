@@ -90,9 +90,9 @@ function drupal7structure_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        'a' => 'a',
-        'b' => 'b',
-        'c' => 'c',
+        'one' => 'One',
+        'two' => 'Two',
+        'three' => 'Three',
       ),
       'allowed_values_function' => '',
     ),
