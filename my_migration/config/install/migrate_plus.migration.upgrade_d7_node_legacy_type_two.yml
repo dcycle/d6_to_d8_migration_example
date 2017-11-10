@@ -48,7 +48,7 @@ process:
     source: field_anything
 destination:
   plugin: 'entity:node'
-  default_bundle: legacy_type_two
+  default_bundle: new_node_type
 migration_dependencies:
   required:
     - upgrade_d7_user

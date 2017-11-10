@@ -45,7 +45,7 @@ process:
       height: height
 destination:
   plugin: 'entity:node'
-  default_bundle: legacy_type_one
+  default_bundle: new_node_type
 migration_dependencies:
   required:
     - upgrade_d7_user
