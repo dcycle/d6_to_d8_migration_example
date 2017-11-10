@@ -33,7 +33,7 @@ In this example:
  * We are including automated tests and continuous integration to make sure the
    import happened correctly:
 
-[![CircleCI](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/drupal7.svg?style=svg)](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/drupal7)
+[![CircleCI](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/7.svg?style=svg)](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/7)
 
 This was accomplished by following the instructions in the article [Custom Drupal-to-Drupal Migrations with Migrate Tools](https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools), by William Hetherington, Drupalize.me, April 26, 2016; this resulted in
 the yml files in `my_migration/config/install`, which can be modified.
