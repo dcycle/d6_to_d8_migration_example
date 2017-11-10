@@ -73,16 +73,15 @@ be empty. Run the following command to get information about the import:
 
     ./scripts/exec.sh drupal8 'drush en -y my_migration'
     ./scripts/exec.sh drupal8 'drush cc drush'
+    ./scripts/exec.sh drupal8 'drush migrate-status'
 
-Note that contrary to a Drupal 6-to-8 migration, drush migrate-state does not seem to do anything useful for a Drupal 7-to-8 migration.
+You can actually run the import like this:
 
-You can actually run the import like this (note that for D7, we're using migrate-upgrade, not migrate-import, which does not seem to do anything):
-
-    ./scripts/exec.sh drupal8 'drush migrate-upgrade'
+    ./scripts/exec.sh drupal8 'drush migrate-import --all'
 
 You can then modify the same node on Drupal 7 and Drupal 8 and run:
 
-    ./scripts/exec.sh drupal8 'drush migrate-upgrade'
+    ./scripts/exec.sh drupal8 'drush migrate-import --all --update'
 
 This will **delete** the change you made to the Drupal 8 nodes
 re-import the change you made in Drupal 7.

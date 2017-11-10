@@ -1,4 +1,4 @@
-uuid: 1cb01d5f-4cc8-46de-9243-d42b692547bb
+uuid: 9eaba22b-b071-4dcb-bc59-3a764cdb4ec6
 langcode: en
 status: true
 dependencies: {  }
@@ -48,7 +48,7 @@ process:
     source: field_anything
 destination:
   plugin: 'entity:node'
-  default_bundle: new_node_type
+  default_bundle: legacy_type_two
 migration_dependencies:
   required:
     - upgrade_d7_user
