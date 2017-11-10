@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Once our Drupal 6 module contains the desired content, calling this
+# Once our Drupal 7 module contains the desired content, calling this
 # script will run the commands from Custom Drupal-to-Drupal Migrations with
 # Migrate Tools (https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools),
 # by William Hetherington, Drupalize.me, April 26, 2016. The result will be
@@ -12,7 +12,7 @@ set -e
 # https://www.drupal.org/node/2827914, however it can't hurt.
 ./scripts/exec.sh drupal8 'drush cc drush && \
   drush migrate-upgrade \
-    --configure-only --legacy-root=/drupal6code && \
+    --configure-only --legacy-root=/drupal7code && \
   drush config-export --destination=/tmp/migrate && \
   cp \
     /tmp/migrate/migrate_plus.migration.* \
