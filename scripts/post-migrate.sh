@@ -6,7 +6,7 @@
 #
 if [ -z "$1" ]; then
   ./scripts/export-all-as-json.sh
-  NIDS=$(./scripts/run-drupal6.sh 'echo "select nid from node" | drush sqlc' | grep -v 'nid')
+  NIDS=$(./scripts/run-drupal7.sh 'echo "select nid from node" | drush sqlc' | grep -v 'nid')
   for NID in $NIDS; do
     ./scripts/run-drupal8.sh "drush eval 'my_migration_post_migrate($NID)'"
   done

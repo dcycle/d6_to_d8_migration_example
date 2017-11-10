@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the drupal6structure feature.
- */
-
-include_once 'drupal6structure.features.inc';

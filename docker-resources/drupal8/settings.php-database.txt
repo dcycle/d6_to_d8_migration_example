@@ -17,13 +17,13 @@ $databases['upgrade']['default'] = array (
   'username' => 'drupal',
   'password' => 'drupal',
   'prefix' => '',
-  'host' => 'drupal6database',
+  'host' => 'drupal7database',
   'port' => '3306',
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',
 );
-// We are expecting the drupal_6 to exist also: when using
+// We are expecting the drupal_7 to exist also: when using
 //   drush migrate-upgrade --configure-only
-// the key is automatically set to drupal_6,
-$databases['drupal_6']['default'] = $databases['upgrade']['default'];
+// the key is automatically set to drupal_7,
+$databases['drupal_7']['default'] = $databases['upgrade']['default'];
 $settings['hash_salt'] = 'whatever-required';

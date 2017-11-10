@@ -26,10 +26,10 @@ COMMAND="$2"
 # container after
 if [ "$COMPOSECONTAINER" == 'drupal8' ]; then
   ./scripts/run-drupal8.sh "$COMMAND"
-elif [ "$COMPOSECONTAINER" == 'drupal6' ]; then
-  ./scripts/run-drupal6.sh "$COMMAND"
+elif [ "$COMPOSECONTAINER" == 'drupal7' ]; then
+  ./scripts/run-drupal7.sh "$COMMAND"
 else
   echo "Sorry, you cannot call ./scripts/exec.sh on a container other than"
-  echo "drupal8 or drupal6 for the time being."
+  echo "drupal8 or drupal7 for the time being."
   exit 1
 fi

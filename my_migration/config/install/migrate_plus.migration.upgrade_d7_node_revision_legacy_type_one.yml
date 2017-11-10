@@ -1,0 +1,55 @@
+uuid: c77f7638-8ccd-4417-99c4-96aa23ad14ba
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_node_revision_legacy_type_one
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+migration_group: migrate_drupal_7
+label: 'Node revisions (legacy_type_one)'
+source:
+  plugin: d7_node_revision
+  node_type: legacy_type_one
+process:
+  nid: nid
+  vid: vid
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  title: title
+  uid: node_uid
+  status: status
+  created: created
+  changed: changed
+  promote: promote
+  sticky: sticky
+  revision_uid: revision_uid
+  revision_log: log
+  revision_timestamp: timestamp
+  comment_node_legacy_type_one/0/status: comment
+  field_select:
+    plugin: get
+    source: field_select
+  field_image:
+    plugin: iterator
+    source: field_image
+    process:
+      target_id: fid
+      alt: alt
+      title: title
+      width: width
+      height: height
+destination:
+  plugin: 'entity_revision:node'
+  default_bundle: legacy_type_one
+migration_dependencies:
+  required:
+    62: upgrade_d7_node_article
+    63: upgrade_d7_node_legacy_type_one
+    64: upgrade_d7_node_legacy_type_two
+    65: upgrade_d7_node_page
+  optional: {  }

@@ -19,20 +19,20 @@ services:
     volumes:
       - ./workspace/workspace/drupal8-files:/var/www/html/sites/default/files
       - ./workspace/workspace/newly-installed:/newly-installed
-      # In order to migrate from Drupal 6, we need access to the entire Drupal 6
+      # In order to migrate from Drupal 7, we need access to the entire Drupal 7
       # codebase. When importing, Drupal 8 assumes we a path to the root of
-      # Drupal 6, which is why we need the directory structure
+      # Drupal 7, which is why we need the directory structure
       # sites/default/files.
-      - ./docker-resources/drupal6/files:/drupal6code/sites/default/files
+      - ./docker-resources/drupal7/files:/drupal7code/sites/default/files
       - ./my_migration:/var/www/html/modules/custom/my_migration
     links:
       # It might also be useful for the Drupal 8 container to have access to
-      # to the Drupal 6 site via http like this: http://drupal6/
-      - drupal6:drupal6
+      # to the Drupal 7 site via http like this: http://drupal7/
+      - drupal7:drupal7
       - drupal8database:drupal8database
-      # In order to migrate from Drupal 6, we need access to the entire Drupal 6
+      # In order to migrate from Drupal 7, we need access to the entire Drupal 7
       # database.
-      - drupal6database:drupal6database
+      - drupal7database:drupal7database
     working_dir: /var/www/html
     restart: always
 
@@ -51,30 +51,30 @@ services:
       - "3306"
     restart: always
 
-  drupal6:
+  drupal7:
     build:
       context: .
-      dockerfile: Dockerfile-drupal6
+      dockerfile: Dockerfile-drupal7
     environment:
       DRUPAL_PROFILE: standard
       DRUPAL_SITE_NAME: Drupal
       DRUPAL_USER: admin
       DRUPAL_PASS: admin
-      DRUPAL_DBURL: mysql://drupal:drupal@drupal6database:3306/drupal
+      DRUPAL_DBURL: mysql://drupal:drupal@drupal7database:3306/drupal
     ports:
       - "80"
     volumes:
-      - ./docker-resources/drupal6/db:/db
+      - ./docker-resources/drupal7/db:/db
       # Share the entire codebase with the Docker host, so it can in turn be
       # shard with the Drupal 8 container, which needs it for the migration.
-      - ./docker-resources/drupal6/files:/var/www/html/sites/default/files
+      - ./docker-resources/drupal7/files:/var/www/html/sites/default/files
     links:
-      - drupal6database:drupal6database
+      - drupal7database:drupal7database
     working_dir: /var/www/html
     restart: always
 
   # Database Server
-  drupal6database:
+  drupal7database:
     image: mysql
     environment:
       MYSQL_USER: drupal

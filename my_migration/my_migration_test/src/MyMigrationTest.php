@@ -75,29 +75,28 @@ class MyMigrationTest {
   public function runTestProcessed() {
     $this->result = 'in progress';
 
-    $this->checkNode(198, array(
+    $this->checkNode(397, array(
       'fields' => array(
-        'title' => 'Exputo Gilvus',
-        'body' => 'node (legacy_type_two) - Olim secundum',
-        'field_anything' => 'qUXeTn9QmZFJ',
+        'title' => 'Amet Brevitas',
+        'body' => 'Commodo gilvus illum loquor',
+        'field_anything' => 'Commodo genitus ille nulla olim quis secundum suscipit tation virtus. Augue dolore ex mos veniam virtus. Defui esse eum facilisi jugis nunc patria valde vero wisi. Antehabeo appellatio caecus feugiat persto praesent probo si.',
       ),
       'type' => 'new_node_type',
       'filefields' => array(
-        'field_image' => 'public://badge_rattlesnake.png',
+        'field_image' => 'public://field/image/imagefield_eMux49.jpeg',
       ),
     ));
-    $this->checkNode(189, array(
+    $this->checkNode(396, array(
       'fields' => array(
-        'title' => 'Diam Gilvus',
-        'body' => 'node (legacy_type_one) - Interdico',
-        'field_new_select' => 'one',
+        'title' => 'Cogo Sagaciter',
+        'field_new_select' => 'two',
       ),
       'type' => 'new_node_type',
     ));
-    $this->checkNode(190, array(
+    $this->checkNode(395, array(
       'exists' => FALSE,
     ));
-    $this->checkNode(192, array(
+    $this->checkNode(392, array(
       'exists' => FALSE,
     ));
 
@@ -108,8 +107,7 @@ class MyMigrationTest {
    * Make sure a file field is set.
    */
   function checkFileField($node, $name, $value) {
-    $id = $node->get($name)->get(0)->get('target_id');
-    $uri = \Drupal\file\Entity\File::load((int)$id)->getFileUri();
+    $uri = $node->field_image->entity->getFileUri();
     if ($uri != $value) {
       $this->errors[] = 'For ' . $node->id() . ', field ' . $name . ' is not ' . $value;
       return;
