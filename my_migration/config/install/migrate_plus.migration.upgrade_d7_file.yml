@@ -14,7 +14,7 @@ source:
   plugin: d7_file
   scheme: public
   constants:
-    source_base_path: /
+    source_base_path: /drupal7code/
 process:
   fid: fid
   filename: filename
