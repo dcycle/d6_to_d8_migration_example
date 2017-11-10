@@ -83,7 +83,7 @@ class MyMigrationTest {
       ),
       'type' => 'new_node_type',
       'filefields' => array(
-        'field_image' => 'public://imagefield_eMux49.jpeg',
+        'field_image' => 'public://field/image/imagefield_eMux49.jpeg',
       ),
     ));
     $this->checkNode(396, array(
@@ -107,8 +107,7 @@ class MyMigrationTest {
    * Make sure a file field is set.
    */
   function checkFileField($node, $name, $value) {
-    $id = $node->get($name)->get(0)->get('target_id');
-    $uri = \Drupal\file\Entity\File::load((int)$id)->getFileUri();
+    $uri = $node->field_image->entity->getFileUri();
     if ($uri != $value) {
       $this->errors[] = 'For ' . $node->id() . ', field ' . $name . ' is not ' . $value;
       return;
