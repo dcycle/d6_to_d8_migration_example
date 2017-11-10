@@ -1,8 +1,17 @@
-Drupal 6 to Drupal 8 migration example
+Drupal 6 (and 7) to Drupal 8 migration example
 =====
 
 This project attempts to demonstrate how typical data might be migrated from
 Drupal 6 to Drupal 8.
+
+Branches
+-----
+
+* [6 (default branch)](https://github.com/dcycle/d6_to_d8_migration_example/tree/6): For migrating from Drupal 6 to Drupal 8. [![CircleCI](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/6.svg?style=svg)](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/6)
+* [7 (default branch)](https://github.com/dcycle/d6_to_d8_migration_example/tree/7): For migrating from Drupal 7 to Drupal 8. [![CircleCI](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/7.svg?style=svg)](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/7)
+
+About
+-----
 
 This project is self-contained and can be run as-is; it is meant to demonstrate
 the migration process.
@@ -30,10 +39,7 @@ In this example:
  * `field_select` should be renamed to `field_new_select`.
  * `field_image` should be imported.
  * Content of type `page` and `story` should be ignored.
- * We are including automated tests and continuous integration to make sure the
-   import happened correctly:
-
-[![CircleCI](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/master.svg?style=svg)](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/master)
+ * We are including automated tests and continuous integration to make sure the import happened correctly.
 
 This was accomplished by following the instructions in the article [Custom Drupal-to-Drupal Migrations with Migrate Tools](https://drupalize.me/blog/201605/custom-drupal-drupal-migrations-migrate-tools), by William Hetherington, Drupalize.me, April 26, 2016; this resulted in
 the yml files in `my_migration/config/install`, which can be modified.
