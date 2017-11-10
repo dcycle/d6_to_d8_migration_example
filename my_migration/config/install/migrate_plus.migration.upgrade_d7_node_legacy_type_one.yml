@@ -31,9 +31,26 @@ process:
   revision_log: log
   revision_timestamp: timestamp
   comment_node_legacy_type_one/0/status: comment
-  field_select:
-    plugin: get
+  field_new_select:
+    plugin: iterator
     source: field_select
+    process:
+      value: value
+      format:
+        -
+          plugin: static_map
+          bypass: true
+          source: format
+          map:
+            - null
+        -
+          plugin: skip_on_empty
+          method: process
+        -
+          plugin: migration
+          migration:
+            - upgrade_d7_filter_format
+          source: format
   field_image:
     plugin: iterator
     source: field_image
