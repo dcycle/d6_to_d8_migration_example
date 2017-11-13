@@ -30,12 +30,12 @@ NETWORK=$(docker inspect "$DRUPAL8"|grep NetworkMode|sed 's/^[^"]*"[^"]*"[^"]*"/
 # We are linking the names of the containers in the context of the network,
 # not the absolute container names that we can retrieve via docker ps.
 docker run \
-  -v "$(pwd)"/docker-resources/drupal6/files:/drupal6code/sites/default/files \
+  -v "$(pwd)"/docker-resources/drupal7/files:/drupal7code/sites/default/files \
   -v "$(pwd)"/my_migration:/var/www/html/modules/custom/my_migration \
   -v "$(pwd)"/workspace/workspace/drupal8-files:/var/www/html/sites/default/files \
   -v "$(pwd)"/workspace/workspace/newly-installed:/newly-installed \
-  --link drupal6:drupal6 \
+  --link drupal7:drupal7 \
   --link drupal8database:drupal8database \
-  --link drupal6database:drupal6database \
+  --link drupal7database:drupal7database \
   --net "$NETWORK" \
   "$IMAGE" /bin/bash -c "$COMMAND"

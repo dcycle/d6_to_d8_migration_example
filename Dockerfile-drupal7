@@ -1,0 +1,20 @@
+# This Dockerfile describes how to create the Drupal 7 container to
+# serve legacy Drupal 7 sites.
+# This will automatically be spun up from the ./scripts/run.sh script.
+FROM dcycle/drupal:7
+
+RUN drush dl \
+	features-7.x-2.x \
+	devel-7.x-1.x \
+	-y
+
+ADD docker-resources/drupal7/run.sh /run.sh
+ADD docker-resources/drupal7/run-import.sh /run-import.sh
+ADD docker-resources/drupal7/run-post-install.sh /run-post-install.sh
+ADD docker-resources/drupal7/drupal7structure /var/www/html/sites/all/modules/features/drupal7structure
+
+RUN cp /var/www/html/sites/default/default.settings.php ./sites/default/settings.php
+RUN echo '$databases["default"]["default"] = array("driver" => "mysql", "database" => "drupal", "username" => "drupal", "password" => "drupal", "host" => "drupal7database", "prefix" => "", );' >> \
+  /var/www/html/sites/default/settings.php
+
+EXPOSE 80

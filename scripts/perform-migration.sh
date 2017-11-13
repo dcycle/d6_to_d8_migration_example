@@ -4,4 +4,4 @@
 #
 set -e
 
-./scripts/exec.sh drupal8 'drush migrate-upgrade --legacy-root=/drupal6code'
+./scripts/exec.sh drupal8 'drush migrate-upgrade --legacy-root=/drupal7code'

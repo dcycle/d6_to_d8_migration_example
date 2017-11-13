@@ -1,0 +1,54 @@
+uuid: 98941b36-03f9-4a69-95bb-ca08ddc00614
+langcode: en
+status: true
+dependencies: {  }
+id: upgrade_d7_comment
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+migration_group: migrate_drupal_7
+label: Comments
+source:
+  plugin: d7_comment
+  constants:
+    entity_type: node
+process:
+  cid: cid
+  pid:
+    plugin: migration_lookup
+    migration: upgrade_d7_comment
+    source: pid
+  entity_id: nid
+  entity_type: constants/entity_type
+  comment_type:
+    -
+      plugin: migration_lookup
+      source: node_type
+      migration: upgrade_d7_comment_type
+    -
+      plugin: skip_on_empty
+      method: row
+  field_name: '@comment_type'
+  subject: subject
+  uid: uid
+  name: name
+  mail: mail
+  homepage: homepage
+  hostname: hostname
+  created: created
+  changed: changed
+  status: status
+  thread: thread
+  comment_body: comment_body
+destination:
+  plugin: 'entity:comment'
+migration_dependencies:
+  required:
+    62: upgrade_d7_node_article
+    63: upgrade_d7_node_legacy_type_one
+    64: upgrade_d7_node_legacy_type_two
+    65: upgrade_d7_node_page
+    66: upgrade_d7_comment_type
+  optional: {  }
