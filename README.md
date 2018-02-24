@@ -77,17 +77,17 @@ If all goes well:
 Your Drupal 7 site should now contain some data and your Drupal 8 site should
 be empty. Run the following command to get information about the import:
 
-    ./scripts/exec.sh drupal8 'drush en -y my_migration'
-    ./scripts/exec.sh drupal8 'drush cc drush'
-    ./scripts/exec.sh drupal8 'drush migrate-status'
+    docker-compose exec drupal8 'drush en -y my_migration'
+    docker-compose exec drupal8 'drush cc drush'
+    docker-compose exec drupal8 'drush migrate-status'
 
 You can actually run the import like this:
 
-    ./scripts/exec.sh drupal8 'drush migrate-import --all'
+    docker-compose exec drupal8 'drush migrate-import --all'
 
 You can then modify the same node on Drupal 7 and Drupal 8 and run:
 
-    ./scripts/exec.sh drupal8 'drush migrate-import --all --update'
+    docker-compose exec drupal8 'drush migrate-import --all --update'
 
 This will **delete** the change you made to the Drupal 8 nodes
 re-import the change you made in Drupal 7.
@@ -97,8 +97,8 @@ my_migration module, which processes content before migrating it. To blindly
 migrate _everything_ from Drupal 7 to Drupal 8, you can run:
 
     ./scripts/restore-newly-installed.sh
-    ./scripts/exec.sh drupal8 'drush cc drush'
-    ./scripts/exec.sh drupal8 'drush migrate-upgrade --legacy-root=/drupal7code'
+    docker-compose exec drupal8 'drush cc drush'
+    docker-compose exec drupal8 'drush migrate-upgrade --legacy-root=/drupal7code'
 
 If you want to reset Drupal 8 to the state it was in before you
 performed a migration (for example if you want to modify the yml files
@@ -115,14 +115,14 @@ Let's first see the problem:
 
 Restore everything to the way it was before the migration:
 
-    ./scripts/exec.sh drupal8 'drush en -y my_migration'
-    ./scripts/exec.sh drupal8 'drush cc drush'
+    docker-compose exec drupal8 'drush en -y my_migration'
+    docker-compose exec drupal8 'drush cc drush'
 
 Now go to `/admin/structure/types/manage/legacy-type-one` and make sure you set "create new revision" in the publishing options.
 
 Now run your migration:
 
-    ./scripts/exec.sh drupal8 'drush migrate-import --all'
+    docker-compose exec drupal8 'drush migrate-import --all'
 
 At this point, let's the latest nid, vid, uid, tid and fid and Drupal 8:
 
@@ -173,7 +173,7 @@ Let's now make sure to increment these on both Drupal 7 and Drupal 8:
 
 Now you can confirm that your nids, vids, uids, tids and fids have been incremented on both your systems. However **the same incremental IDs no longer link to the same data on both systems**. Let's see what this does:
 
-    ./scripts/exec.sh drupal8 'drush migrate-import --all --update'
+    docker-compose exec drupal8 'drush migrate-import --all --update'
 
 At this point:
 
@@ -193,9 +193,9 @@ The solution, and some advanced techniques to deal with this, can be tracked in 
 
 Meanwhile, here is a rather simple technique that might work for your needs:
 
-    ./scripts/exec.sh drupal8 'drush en -y my_migration'
-    ./scripts/exec.sh drupal8 'drush cc drush'
-    ./scripts/exec.sh drupal8 'drush migrate-status'
+    docker-compose exec drupal8 'drush en -y my_migration'
+    docker-compose exec drupal8 'drush cc drush'
+    docker-compose exec drupal8 'drush migrate-status'
 
 **But before going forward**, let's bump the auto_increment values to insanely high values on Drupal 8:
 
@@ -364,9 +364,9 @@ Brings your D8 site to a pristine state:
 
 Run your migration:
 
-    ./scripts/exec.sh drupal8 'drush en -y my_migration'
-    ./scripts/exec.sh drupal8 'drush cc drush'
-    ./scripts/exec.sh drupal8 'drush migrate-import --all'
+    docker-compose exec drupal8 'drush en -y my_migration'
+    docker-compose exec drupal8 'drush cc drush'
+    docker-compose exec drupal8 'drush migrate-import --all'
 
 Check the results by opening the same node on your Drupal 7 and Drupal 8 sites.
 
