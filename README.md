@@ -1,4 +1,4 @@
-Drupal 6 (and 7) to Drupal 8 migration example
+aDrupal 6 (and 7) to Drupal 8 migration example
 =====
 
 This project attempts to demonstrate how typical data might be migrated from
@@ -126,41 +126,41 @@ Now run your migration:
 
 At this point, let's the latest nid, vid, uid, tid and fid and Drupal 8:
 
-(docker-compose exec drupal8 /bin/bash -c \
-  'echo "SELECT nid FROM node \
-  ORDER BY nid DESC LIMIT 1" | drush sqlc'
-docker-compose exec drupal8 /bin/bash -c \
-  'echo "SELECT vid FROM node_revision \
-  ORDER BY vid DESC LIMIT 1" | drush sqlc'
-docker-compose exec drupal8 /bin/bash -c \
-  'echo "SELECT uid FROM users \
-  ORDER BY uid DESC LIMIT 1" | drush sqlc'
-docker-compose exec drupal8 /bin/bash -c \
-  'echo "SELECT tid FROM taxonomy_term_data \
-  ORDER BY tid DESC LIMIT 1" | drush sqlc'
-docker-compose exec drupal8 /bin/bash -c \
-  'echo "SELECT fid FROM file_managed \
-  ORDER BY fid DESC LIMIT 1" | drush sqlc')
+      (docker-compose exec drupal8 /bin/bash -c \
+        'echo "SELECT nid FROM node \
+        ORDER BY nid DESC LIMIT 1" | drush sqlc'
+      docker-compose exec drupal8 /bin/bash -c \
+        'echo "SELECT vid FROM node_revision \
+        ORDER BY vid DESC LIMIT 1" | drush sqlc'
+      docker-compose exec drupal8 /bin/bash -c \
+        'echo "SELECT uid FROM users \
+        ORDER BY uid DESC LIMIT 1" | drush sqlc'
+      docker-compose exec drupal8 /bin/bash -c \
+        'echo "SELECT tid FROM taxonomy_term_data \
+        ORDER BY tid DESC LIMIT 1" | drush sqlc'
+      docker-compose exec drupal8 /bin/bash -c \
+        'echo "SELECT fid FROM file_managed \
+        ORDER BY fid DESC LIMIT 1" | drush sqlc')
 
 And Drupal 7:
 
-(docker-compose exec drupal7 /bin/bash -c \
-  'echo "SELECT nid FROM node \
-  WHERE type in ('"'"'legacy_type_one'"'"', \
-  '"'"'legacy_type_two'"'"') \
-  ORDER BY nid DESC LIMIT 1" | drush sqlc'
-docker-compose exec drupal7 /bin/bash -c \
-  'echo "SELECT vid FROM node_revision \
-  ORDER BY vid DESC LIMIT 1" | drush sqlc'
-docker-compose exec drupal7 /bin/bash -c \
-  'echo "SELECT uid FROM users \
-  ORDER BY uid DESC LIMIT 1" | drush sqlc'
-docker-compose exec drupal7 /bin/bash -c \
-  'echo "SELECT tid FROM taxonomy_term_data \
-  ORDER BY tid DESC LIMIT 1" | drush sqlc'
-docker-compose exec drupal7 /bin/bash -c \
-  'echo "SELECT fid FROM file_managed \
-  ORDER BY fid DESC LIMIT 1" | drush sqlc')
+      (docker-compose exec drupal7 /bin/bash -c \
+        'echo "SELECT nid FROM node \
+        WHERE type in ('"'"'legacy_type_one'"'"', \
+        '"'"'legacy_type_two'"'"') \
+        ORDER BY nid DESC LIMIT 1" | drush sqlc'
+      docker-compose exec drupal7 /bin/bash -c \
+        'echo "SELECT vid FROM node_revision \
+        ORDER BY vid DESC LIMIT 1" | drush sqlc'
+      docker-compose exec drupal7 /bin/bash -c \
+        'echo "SELECT uid FROM users \
+        ORDER BY uid DESC LIMIT 1" | drush sqlc'
+      docker-compose exec drupal7 /bin/bash -c \
+        'echo "SELECT tid FROM taxonomy_term_data \
+        ORDER BY tid DESC LIMIT 1" | drush sqlc'
+      docker-compose exec drupal7 /bin/bash -c \
+        'echo "SELECT fid FROM file_managed \
+        ORDER BY fid DESC LIMIT 1" | drush sqlc')
 
 Let's now make sure to increment these on both Drupal 7 and Drupal 8:
 
@@ -182,17 +182,18 @@ At this point:
 * the D7 user **replaces** the D8 user.
 * You will get some ugly errors like:
 
-    Drupal\Core\Entity\EntityStorageException: Update existing 'node'        [error]
+    `Drupal\Core\Entity\EntityStorageException: Update existing 'node'        [error]
     entity revision while changing the revision ID is not supported. in
     Drupal\Core\Entity\ContentEntityStorageBase->doPreSave() (line 303 of
-    /var/www/html/core/lib/Drupal/Core/Entity/ContentEntityStorageBase.php).
+    /var/www/html/core/lib/Drupal/Core/Entity/ContentEntityStorageBase.php).`
 
 In essence, some really ugly stuff if you want to do gradual migrations...
 
 The solution, and some advanced techniques to deal with this, can be tracked in [this issue on Drupal.org](https://www.drupal.org/project/drupal/issues/2748609).
 
-Meanwhile, here is a rather simple technique that might work for your needs:
+Meanwhile, here is a rather simple technique that might work for your needs; let's start by resetting everything:
 
+    ./scripts/restore-newly-installed.sh
     docker-compose exec drupal8 'drush en -y my_migration'
     docker-compose exec drupal8 'drush cc drush'
     docker-compose exec drupal8 'drush migrate-status'
