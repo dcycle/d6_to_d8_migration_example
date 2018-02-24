@@ -58,7 +58,7 @@ Prerequisites
 
  * Docker (latest version) and Docker-compose (latest version); tested using Docker for mac OS native.
 
-Instructions
+Instructions (simple)
 -----
 
 ### 1. Start up the system
@@ -105,6 +105,136 @@ performed a migration (for example if you want to modify the yml files
 in ./my-migration/config/install), you can run:
 
     ./scripts/restore-newly-installed.sh
+
+Instructions to avoiding ID collisions during incremental migrations
+-----
+
+The following is a sample workaround for an [incremental id collision issue](https://www.drupal.org/project/drupal/issues/2748609) which exists in core at the time of this writing.
+
+Let's first see the problem:
+
+Restore everything to the way it was before the migration:
+
+    ./scripts/exec.sh drupal8 'drush en -y my_migration'
+    ./scripts/exec.sh drupal8 'drush cc drush'
+
+Now go to `/admin/structure/types/manage/legacy-type-one` and make sure you set "create new revision" in the publishing options.
+
+Now run your migration:
+
+    ./scripts/exec.sh drupal8 'drush migrate-import --all'
+
+At this point, let's the latest nid, vid, uid, tid and fid and Drupal 8:
+
+(docker-compose exec drupal8 /bin/bash -c \
+  'echo "SELECT nid FROM node \
+  ORDER BY nid DESC LIMIT 1" | drush sqlc'
+docker-compose exec drupal8 /bin/bash -c \
+  'echo "SELECT vid FROM node_revision \
+  ORDER BY vid DESC LIMIT 1" | drush sqlc'
+docker-compose exec drupal8 /bin/bash -c \
+  'echo "SELECT uid FROM users \
+  ORDER BY uid DESC LIMIT 1" | drush sqlc'
+docker-compose exec drupal8 /bin/bash -c \
+  'echo "SELECT tid FROM taxonomy_term_data \
+  ORDER BY tid DESC LIMIT 1" | drush sqlc'
+docker-compose exec drupal8 /bin/bash -c \
+  'echo "SELECT fid FROM file_managed \
+  ORDER BY fid DESC LIMIT 1" | drush sqlc')
+
+And Drupal 7:
+
+(docker-compose exec drupal7 /bin/bash -c \
+  'echo "SELECT nid FROM node \
+  WHERE type in ('"'"'legacy_type_one'"'"', \
+  '"'"'legacy_type_two'"'"') \
+  ORDER BY nid DESC LIMIT 1" | drush sqlc'
+docker-compose exec drupal7 /bin/bash -c \
+  'echo "SELECT vid FROM node_revision \
+  ORDER BY vid DESC LIMIT 1" | drush sqlc'
+docker-compose exec drupal7 /bin/bash -c \
+  'echo "SELECT uid FROM users \
+  ORDER BY uid DESC LIMIT 1" | drush sqlc'
+docker-compose exec drupal7 /bin/bash -c \
+  'echo "SELECT tid FROM taxonomy_term_data \
+  ORDER BY tid DESC LIMIT 1" | drush sqlc'
+docker-compose exec drupal7 /bin/bash -c \
+  'echo "SELECT fid FROM file_managed \
+  ORDER BY fid DESC LIMIT 1" | drush sqlc')
+
+Let's now make sure to increment these on both Drupal 7 and Drupal 8:
+
+* Add an image to an existing node in Drupal 7.
+* Add a new node on D8 with a new image.
+* Add a new taxonomy term to D7 and D8.
+* Add a new user to D7 and another one to D8, making sure they have the same UID (you might have to create several in D8 to get to the same UID as the one D7).
+* Edit a legacy_node_one node on D7, making sure to create a new revision.
+* Edit a node in D8 (which does not have the same revision as D7 node you just edited) and make sure to add a new revision.
+
+Now you can confirm that your nids, vids, uids, tids and fids have been incremented on both your systems. However **the same incremental IDs no longer link to the same data on both systems**. Let's see what this does:
+
+    ./scripts/exec.sh drupal8 'drush migrate-import --all --update'
+
+At this point:
+
+* the taxonomy term you added on D7 **replaces** the one you added on D8.
+* the image you added to a node in D7 **replaces** the image on the new node in D8.
+* the D7 user **replaces** the D8 user.
+* You will get some ugly errors like:
+
+    Drupal\Core\Entity\EntityStorageException: Update existing 'node'        [error]
+    entity revision while changing the revision ID is not supported. in
+    Drupal\Core\Entity\ContentEntityStorageBase->doPreSave() (line 303 of
+    /var/www/html/core/lib/Drupal/Core/Entity/ContentEntityStorageBase.php).
+
+In essence, some really ugly stuff if you want to do gradual migrations...
+
+The solution, and some advanced techniques to deal with this, can be tracked in [this issue on Drupal.org](https://www.drupal.org/project/drupal/issues/2748609).
+
+Meanwhile, here is a rather simple technique that might work for your needs:
+
+    ./scripts/exec.sh drupal8 'drush en -y my_migration'
+    ./scripts/exec.sh drupal8 'drush cc drush'
+    ./scripts/exec.sh drupal8 'drush migrate-status'
+
+**But before going forward**, let's bump the auto_increment values to insanely high values on Drupal 8:
+
+    (docker-compose exec drupal8 /bin/bash -c \
+      'echo "ALTER TABLE node AUTO_INCREMENT = 500000" \
+      | drush sqlc'
+    docker-compose exec drupal8 /bin/bash -c \
+      'echo "ALTER TABLE node_revision AUTO_INCREMENT = 500000" \
+      | drush sqlc'
+    docker-compose exec drupal8 /bin/bash -c \
+      'echo "ALTER TABLE taxonomy_term_data AUTO_INCREMENT = 500000" \
+      | drush sqlc'
+    docker-compose exec drupal8 /bin/bash -c \
+      'echo "ALTER TABLE file_managed AUTO_INCREMENT = 500000" \
+      | drush sqlc')
+
+This being Drupal, [we can't auto-increment users the same way](https://www.drupal.org/project/drupal/issues/1209466). My solution is create a dummy user with a high uid; this will force further users to have higher uids:
+
+    $values = [
+      'field_first_name' => 'Placeholder dummy user',
+      'fieldt_last_name' => 'Placeholder dummy user',
+      'name' => 'dummy-user-bump-to-25000',
+      'mail' => 'test@test.com',
+      'roles' => array(),
+      'pass' => rand() . rand() . rand() . rand() . rand() . rand(),
+      'status' => 0,
+      'uid' => 25000,
+    ];
+    $account = entity_create('user', $values);
+    $account->save();
+
+If you want to run this code on your D8 site, you can enable the Devel module:
+
+    docker-compose exec drupal8 /bin/bash -c \
+      'drush dl devel && drush en -y devel'
+
+Then navigate to /devel/php and enter the PHP code above.
+
+In my tests, this approach can work in cases where we are dealing with incremental IDs. Please make sure to audit your content for any incremental IDs to avoid data loss, and keep watching the corresponding [Drupal.org issue](https://www.drupal.org/project/drupal/issues/2748609).
 
 Preparing your own migration: step-by-step guide
 -----
