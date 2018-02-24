@@ -8,7 +8,7 @@ Branches
 -----
 
 * [6 (default branch)](https://github.com/dcycle/d6_to_d8_migration_example/tree/6): For migrating from Drupal 6 to Drupal 8. [![CircleCI](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/6.svg?style=svg)](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/6)
-* [7](https://github.com/dcycle/d6_to_d8_migration_example/tree/7): For migrating from Drupal 7 to Drupal 8. [![CircleCI](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/7.svg?style=svg)](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/7)
+* [7 (THIS BRANCH)](https://github.com/dcycle/d6_to_d8_migration_example/tree/7): For migrating from Drupal 7 to Drupal 8. [![CircleCI](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/7.svg?style=svg)](https://circleci.com/gh/dcycle/d6_to_d8_migration_example/tree/7)
 
 About
 -----
