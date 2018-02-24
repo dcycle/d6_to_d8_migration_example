@@ -1,4 +1,4 @@
-aDrupal 6 (and 7) to Drupal 8 migration example
+Drupal 6 (and 7) to Drupal 8 migration example
 =====
 
 This project attempts to demonstrate how typical data might be migrated from
