@@ -38,7 +38,7 @@ services:
 
   # Database Server
   drupal8database:
-    image: mysql
+    image: mysql:5
     environment:
       MYSQL_USER: drupal
       MYSQL_PASSWORD: drupal
@@ -75,7 +75,7 @@ services:
 
   # Database Server
   drupal6database:
-    image: mysql
+    image: mysql:5
     environment:
       MYSQL_USER: drupal
       MYSQL_PASSWORD: drupal
