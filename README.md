@@ -1,6 +1,8 @@
 Drupal 6 (and 7) to Drupal 8 migration example
 =====
 
+**This project is no longer maintained.**
+
 This project attempts to demonstrate how typical data might be migrated from
 Drupal 6 to Drupal 8.
 
